@@ -1,0 +1,49 @@
+{
+  "name": "api-chegou",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts",
+    "build": "tsc",
+    "migrate": "knex migrate:latest --knexfile src/database/knexfile.ts",
+    "migrate:rollback": "knex migrate:rollback --knexfile src/database/knexfile.ts",
+    "migrate:make": "knex migrate:make --knexfile src/database/knexfile.ts",
+    "seed": "knex seed:run --knexfile src/database/knexfile.ts",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felipe-ollv/api-chegou.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/felipe-ollv/api-chegou/issues"
+  },
+  "homepage": "https://github.com/felipe-ollv/api-chegou#readme",
+  "devDependencies": {
+    "@types/compression": "^1.7.5",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@types/helmet": "^0.0.48",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.15.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "compression": "^1.8.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "knex": "^3.1.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.15.6"
+  },
+  "description": ""
+}
