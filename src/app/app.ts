@@ -15,7 +15,7 @@ const createApp = (): Application => {
   app.use(cors());
   app.use(helmet());
   app.use(compression());
-  
+
   if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
   }

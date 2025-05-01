@@ -1,5 +1,5 @@
-import { Router } from "express";
-import { UserController } from "../controllers/user.controller";
+import { Router } from 'express';
+import { UserController } from '../controllers/user.controller';
 // import { body } from "express-validator";
 
 const router = Router();

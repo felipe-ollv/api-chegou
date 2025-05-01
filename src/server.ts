@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import app from './app/app';
-import db from './app/database/index';
+// import db from './app/database/index';
 
 const PORT = process.env.PORT || 3000;
 
@@ -8,7 +8,7 @@ app.listen(PORT, () => {
   console.log(`Servidor na porta http://localhost:${PORT}`);
 });
 
-// TODO Aguardando o banco ser criado 
+// TODO Aguardando o banco ser criado
 
 // db.raw('SELECT 1')
 //   .then(() => {
