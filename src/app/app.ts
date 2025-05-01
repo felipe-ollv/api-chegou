@@ -4,6 +4,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 import { errorHandler, notFound } from './middlewares/errorHandler';
+import routes from './routes';
+import 'dotenv/config';
 
 const createApp = (): Application => {
   const app = express();
@@ -17,6 +19,8 @@ const createApp = (): Application => {
   if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
   }
+
+  app.use(`${process.env.URL_API}`, routes);
 
   app.get('/health', (req, res) => {
     res.status(200).json({ status: 'OK' });
