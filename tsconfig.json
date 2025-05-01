@@ -17,6 +17,6 @@
     "emitDecoratorMetadata": true,
     "noImplicitAny": false
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

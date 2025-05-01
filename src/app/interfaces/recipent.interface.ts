@@ -1,6 +1,7 @@
 export interface RecipientInterface {
   id?: number;
-  uuid_receiver: string;
+  uuid_receipt: string;
+  uuid_user_fk: string;
   created_at?: Date;
   updated_at?: Date;
 }

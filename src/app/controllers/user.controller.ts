@@ -12,7 +12,7 @@ export class UserController {
         res.status(400).json({ error: 'Email já cadastrado!' });
         return;
       }
-
+      
       await UserModel.create(data);
       res.status(201).json({ success: 'Usuário cadastrado!' });
     } catch (error) {
