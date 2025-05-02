@@ -1,4 +1,4 @@
-import express, { Application } from 'express';
+import express, { Application, Request } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -17,7 +17,15 @@ const createApp = (): Application => {
   app.use(compression());
 
   if (process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev'));
+    
+    morgan.token('body', (req) => {
+      const body = (req as Request).body;
+      return JSON.stringify(body);
+    });
+
+    app.use(
+      morgan(':method :url :status :res[content-length] - :response-time ms :body')
+    );
   }
 
   app.use(`${process.env.URL_API}`, routes);
