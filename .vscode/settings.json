@@ -3,5 +3,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always"
   },
-  "eslint.validate": ["typescript"]
+  "eslint.validate": ["typescript"],
+  "editor.tabSize": 2
 }
