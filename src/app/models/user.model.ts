@@ -17,8 +17,8 @@ export class UserModel {
     return createdUser;
   }
 
-  static async findByPhone(phone: string): Promise<UserInterface | undefined> {
-    const result = await db(this.tableName).where({ phone }).first();
+  static async findByPhone(phone_number: string): Promise<UserInterface | undefined> {
+    const result = await db(this.tableName).where({ phone_number }).first();
     return result;
   }
 

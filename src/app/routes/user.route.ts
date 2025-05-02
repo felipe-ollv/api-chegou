@@ -5,5 +5,6 @@ import { UserController } from '../controllers/user.controller';
 const router = Router();
 
 router.post('/create', UserController.create);
+router.get('/fetch/:phone_number', UserController.fetchUser)
 
 export default router;
