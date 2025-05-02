@@ -3,11 +3,11 @@ import { UserInterface } from '../interfaces/users.interface';
 
 export default class UserService {
 
-  static async create(user: UserInterface): Promise<void> {
+  static async createUser(user: UserInterface): Promise<void> {
     await UserModel.create(user);
   }
 
-  static async findByPhone(phone: string): Promise<UserInterface | undefined> {
+  static async findByPhone(phone: string): Promise<UserInterface | undefined | string> {
     return await UserModel.findByPhone(phone);
   }
 }
