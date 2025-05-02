@@ -17,15 +17,12 @@ const createApp = (): Application => {
   app.use(compression());
 
   if (process.env.NODE_ENV === 'development') {
-    
     morgan.token('body', (req) => {
       const body = (req as Request).body;
       return JSON.stringify(body);
     });
 
-    app.use(
-      morgan(':method :url :status :res[content-length] - :response-time ms :body')
-    );
+    app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
   }
 
   app.use(`${process.env.URL_API}`, routes);

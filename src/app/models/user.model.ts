@@ -4,9 +4,7 @@ import { UserInterface } from '../interfaces/users.interface';
 export class UserModel {
   private static tableName = 'users';
 
-  static async create(
-    user: Omit<UserInterface, 'id' | 'updated_at'>,
-  ): Promise<UserInterface> {
+  static async create(user: Omit<UserInterface, 'id' | 'updated_at'>): Promise<UserInterface> {
     const [createdUser] = await db(this.tableName)
       .insert({
         ...user,
