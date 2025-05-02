@@ -1,48 +1,49 @@
 import { Request, Response } from 'express';
 import UserService from '../services/user.service';
 import { UserInterface } from '../interfaces/users.interface';
-import { isValidPhone } from '../utils/valid.phone';
 
 export class UserController {
-  static async create(req: Request, res: Response): Promise<void> {
+  static async create(req: Request, res: Response): Promise<any> {
+    const data: UserInterface = req.body;
+
+    if (!UserService.validatePhone(data.phone_number)) {
+      return res.status(400).json({ warning: 'Número inválido!' });
+    }
+
     try {
-      const data: UserInterface = req.body;
-      const valid = isValidPhone(data.phone_number);
-      if (valid) {
-        const existingUser = await UserService.findByPhone(data.phone_number);
+      const existingUser = await UserService.findByPhone(data.phone_number);
 
-        if (!existingUser) {
-          await UserService.createUser(data);
-          res.status(201).json({ success: 'Usuário cadastrado!' });
-        }
-
-        res.status(400).json({ warning: 'Usuário já cadastrado!' });
+      if (existingUser) {
+        return res.status(400).json({ warning: 'Usuário já cadastrado!' });
       }
 
-      res.status(400).json({ warning: 'Número inválido!' });
+      await UserService.createUser(data);
+      return res.status(201).json({ success: 'Usuário cadastrado!' });
+
     } catch (error) {
       res.status(500).json({ error: 'Erro interno' });
     }
   }
 
-  static async fetch(req: Request, res: Response) {
+  static async fetch(req: Request, res: Response): Promise<any> {
+    const data = req.params.phone_number;
+
+    if (!UserService.validatePhone(data)) {
+      return res.status(400).json({ warning: 'Número inválido!' });
+    }
+
     try {
-      const data = req.params.phone_number;
-      const valid = isValidPhone(data);
-      if (valid) {
         const existingUser = await UserService.findByPhone(data);
 
         if (!existingUser) {
-          res.status(400).json({ warning: 'Usuário não encontrado!' });
+          return res.status(400).json({ warning: 'Usuário não encontrado!' });
         }
 
-        res.status(200).json(existingUser);
-      }
+        return res.status(200).json(existingUser);
 
-      res.status(400).json({ warning: 'Número inválido!' });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ error: 'Erro interno!' });
+      return res.status(500).json({ error: 'Erro interno!' });
     }
   }
 }
