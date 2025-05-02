@@ -1,4 +1,4 @@
-export interface RecipientInterface {
+export interface PackageInterface {
   id?: number;
   uuid_receipt: string;
   uuid_user_fk: string;

@@ -7,9 +7,9 @@ export class UserController {
     try {
       const data: UserInterface = req.body;
       const existingUser = await UserModel.findByPhone(data.phone_number);
-
+      
       if (existingUser) {
-        res.status(400).json({ error: 'Email já cadastrado!' });
+        res.status(400).json({ error: 'Telefone já cadastrado!' });
         return;
       }
       

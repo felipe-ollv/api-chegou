@@ -5,7 +5,7 @@ export class UserModel {
   private static tableName = 'users';
 
   static async create(
-    user: Omit<UserInterface, 'id' | 'created_at' | 'updated_at'>,
+    user: Omit<UserInterface, 'id' | 'updated_at'>,
   ): Promise<UserInterface> {
     const [createdUser] = await db(this.tableName)
       .insert({
@@ -18,7 +18,8 @@ export class UserModel {
   }
 
   static async findByPhone(phone: string): Promise<UserInterface | undefined> {
-    return db(this.tableName).where({ phone }).first();
+    const result = await db(this.tableName).where({ phone }).first();
+    return result;
   }
 
   static async update(user: Partial<UserInterface>): Promise<UserInterface> {
