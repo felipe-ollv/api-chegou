@@ -11,5 +11,6 @@ export class Messages {
 
   static readonly warning = {
     userNotFound: 'Usuário não encontrado!',
+    invalidCredentials: 'Usuário ou senha incorreto'
   };
 }

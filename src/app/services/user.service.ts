@@ -1,6 +1,6 @@
 import { UserModel } from '../models/user.model';
 import { UserInterface } from '../interfaces/users.interface';
-import { isValidPhone } from '../utils/valid.phone';
+import { isValidPhone } from '../validators/valid.phone';
 
 export default class UserService {
   static async createUser(user: UserInterface): Promise<void> {
