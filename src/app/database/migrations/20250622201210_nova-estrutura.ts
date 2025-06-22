@@ -1,12 +1,25 @@
-import type { Knex } from 'knex';
+import type { Knex } from "knex";
 
 export async function up(knex: Knex): Promise<void> {
 
+  // CONDOMINIUM
+  await knex.schema.createTable('condominium', (table) => {
+    table.increments('id').primary();
+    table.uuid('uuid_condominium').notNullable().unique();
+    table.string('condominium_name').notNullable();
+    table.string('address').notNullable();
+    table.string('address_number').notNullable();
+    table.string('cep').notNullable();
+    table.timestamp('created_at').defaultTo(knex.fn.now());
+    table.timestamp('updated_at');
+    table.tinyint('deleted').defaultTo(0);
+  });
+
   // USERS
   await knex.schema.createTable('users', (table) => {
-    table.increments('id').primary();
+    table.increments('id').notNullable().primary();
     table.uuid('uuid_user').notNullable().unique();
-    table.string('uuid_usar_profile_fk', 40).notNullable().unique().references('uuid_user_profile').inTable('user_profile');
+    table.string('uuid_user_profile_fk', 40).notNullable().unique();
     table.string('name', 50).notNullable();
     table.string('last_name', 100).notNullable();
     table.date('borned').notNullable();
@@ -15,12 +28,12 @@ export async function up(knex: Knex): Promise<void> {
     table.tinyint('deleted').defaultTo(0);
   });
 
-  // USER_PROFILE
+  // USER_PROFILE 
   await knex.schema.createTable('user_profile', (table) => {
     table.increments('id').primary();
     table.uuid('uuid_user_profile').notNullable().unique();
     table.string('uuid_user_fk', 40).notNullable().unique().references('uuid_user').inTable('users');
-    table.string('uuid_condominium_fk', 40).notNullable();
+    table.string('uuid_condominium_fk', 40).notNullable().references('uuid_condominium').inTable('condominium');
     table.string('apartment_block', 20).notNullable();
     table.integer('apartment').notNullable();
     table.string('phone_number', 30).notNullable().unique();
@@ -37,6 +50,10 @@ export async function up(knex: Knex): Promise<void> {
     table.tinyint('deleted').defaultTo(0);
   });
 
+  await knex.schema.alterTable('users', (table) => {
+    table.foreign('uuid_user_profile_fk').references('uuid_user_profile').inTable('user_profile');
+  });
+
   // USER_ACCESS
   await knex.schema.createTable('user_access', (table) => {
     table.increments('id').primary();
@@ -47,19 +64,6 @@ export async function up(knex: Knex): Promise<void> {
       'INACTIVE'
     ]).notNullable();
     table.string('password', 200).notNullable();
-    table.timestamp('created_at').defaultTo(knex.fn.now());
-    table.timestamp('updated_at');
-    table.tinyint('deleted').defaultTo(0);
-  });
-
-  // CONDOMINIUM
-  await knex.schema.createTable('condominium', (table) => {
-    table.increments('id').primary();
-    table.uuid('uuid_condominium').notNullable().unique();
-    table.string('condominium_name').notNullable();
-    table.string('address').notNullable();
-    table.string('address_number').notNullable();
-    table.string('cep').notNullable();
     table.timestamp('created_at').defaultTo(knex.fn.now());
     table.timestamp('updated_at');
     table.tinyint('deleted').defaultTo(0);
@@ -109,11 +113,12 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-  await knex.schema.dropTableIfExists('users')
   await knex.schema.dropTableIfExists('notification');
   await knex.schema.dropTableIfExists('package');
   await knex.schema.dropTableIfExists('note_data');
   await knex.schema.dropTableIfExists('condominium');
   await knex.schema.dropTableIfExists('user_access');
+  await knex.schema.dropTableIfExists('users');
   await knex.schema.dropTableIfExists('user_profile');
 }
+

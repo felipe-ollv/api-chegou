@@ -1,10 +1,8 @@
 import { Router } from 'express';
-import userRoutes from './user.route';
-import authRoutes from './auth.route'
+import condominiumRoutes from './condominium/condominium.route';
 
 const router = Router();
 
-router.use('/users', userRoutes);
-router.use('/auth', authRoutes);
+router.use('/condominium', condominiumRoutes);
 
 export default router;
