@@ -3,6 +3,21 @@ import db from '../../database';
 export class CondominiumModel {
   private static tableName = 'condominium';
 
+  static async findbyUUid(data: string): Promise<any> {
+    try {
+      const condominium = await db(this.tableName)
+        .where('uuid_condominium', data)
+        .andWhere('deleted', 0)
+        .select();
+
+      console.log('FIND BY', condominium);
+
+      return condominium;
+    } catch (error) {
+
+    }
+  }
+
   static async findAll(): Promise<any> {
     try {
       const listCondominium = await db(this.tableName)
@@ -35,10 +50,8 @@ export class CondominiumModel {
   static async update(condominium: any): Promise<any> {
     try {
       const updatedComdominium = await db(this.tableName)
-        .where('uuid_condominium', condominium)
-        .update({
-          ...condominium
-        })
+        .where('uuid_condominium', condominium.uuid_condominium)
+        .update(condominium)
 
       console.log('UPDATE', updatedComdominium);
 
@@ -52,6 +65,7 @@ export class CondominiumModel {
     try {
       const deletedCondominium = await db(this.tableName)
         .where('uuid_condominium', uuidCondominium)
+        .andWhere('deleted', 0)
         .update({
           deleted: 1
         });

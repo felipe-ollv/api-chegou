@@ -3,15 +3,62 @@ import { condominiumSchema } from '../../schemas/condominium/condominium.schema'
 import { CondominiumService } from '../../services/condominium/condominium.service';
 
 export class CondominiumController {
+
+  static async findCondominium(req: Request, res: Response): Promise<any> {
+    try {
+      const value = req.params.value;
+      const resp = await CondominiumService.findCondominiumService(value);
+      return res.status(200).json(resp);
+    } catch (error) {
+      console.log("ERROR", error);
+      return res.status(400).json({ message: 'Erro ao listar condominio' });
+    }
+  }
+
+  static async findAllCondominium(req: Request, res: Response): Promise<any> {
+    try {
+      const resp = await CondominiumService.findAllCondominiumService();
+      return res.status(200).json(resp);
+    } catch (error) {
+      console.log("ERROR", error);
+      return res.status(400).json({ message: 'Erro ao listar condominios' });
+    }
+  }
+
   static async register(req: Request, res: Response): Promise<any> {
     try {
       const condominiumData = condominiumSchema.parse(req.body);
-      const resp = await CondominiumService.registerCondominium(condominiumData);
+      const resp = await CondominiumService.registerCondominiumService(condominiumData);
       console.log('RES', resp);
       return res.status(201).json({ message: 'Condominio cadastrado com sucesso' });
     } catch (error: any) {
       console.log("ERROR", error);
       return res.status(400).json({ message: 'Erro ao cadastrar condominio, verifique as informações' });
+    }
+  }
+
+  static async update(req: Request, res: Response): Promise<any> {
+    try {
+      const condominiumData = condominiumSchema.parse(req.body);
+      console.log(condominiumData)
+      const resp = await CondominiumService.updateCondominiumService(condominiumData);
+      console.log('RES', resp);
+      return res.status(200).json({ message: 'Condominio atualizado com sucesso' });
+    } catch (error: any) {
+      console.log("ERROR", error);
+      return res.status(400).json({ message: 'Erro ao atualizar condominio, verifique as informações' });
+    }
+  }
+
+  static async delete(req: Request, res: Response): Promise<any> {
+    try {
+      const value = req.params.value;
+      const resp = await CondominiumService.deleteCondominiumService(value);
+      console.log('RES', resp);
+      return res.status(200).json({ message: 'Condominio excluído com sucesso' });
+    } catch (error: any) {
+      console.log("ERROR", error);
+      return res.status(400).json({ message: 'Erro ao excluir condominio' });
     }
   }
 }
