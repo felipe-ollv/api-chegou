@@ -22,7 +22,7 @@ export class UserResource {
 
       return res.status(200).json(resp);
     } catch (error) {
-      return res.status(400).json({ message: 'Erro ao cadastrar condominio, verifique as informações' });
+      return res.status(400).json({ message: 'Erro ao cadastrar usuario, verifique as informações' });
     }
   }
 }
