@@ -1,6 +1,6 @@
 import db from '../../database';
 
-export class CondominiumModel {
+export class CondominiumRepository {
   private static tableName = 'condominium';
 
   static async findbyUUid(data: string): Promise<any> {
@@ -14,7 +14,7 @@ export class CondominiumModel {
 
       return condominium;
     } catch (error) {
-
+      return error;
     }
   }
 

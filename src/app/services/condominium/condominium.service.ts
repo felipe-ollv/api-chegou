@@ -1,11 +1,11 @@
 import { Condominium } from "../../schemas/condominium/condominium.schema";
-import { CondominiumModel } from "../../models/condominium/condominium.model";
+import { CondominiumRepository } from "../../repositorys/condominium/condominium.repository";
 
 export class CondominiumService {
 
   static async findCondominiumService(data: any): Promise<any> {
     try {
-      const resModel = await CondominiumModel.findbyUUid(data);
+      const resModel = await CondominiumRepository.findbyUUid(data);
       return resModel;
     } catch (error) {
       return error;
@@ -14,7 +14,7 @@ export class CondominiumService {
 
   static async findAllCondominiumService(): Promise<any> {
     try {
-      const resModel = await CondominiumModel.findAll();
+      const resModel = await CondominiumRepository.findAll();
       return resModel;
     } catch (error) {
       return error;
@@ -23,7 +23,7 @@ export class CondominiumService {
 
   static async registerCondominiumService(data: Condominium): Promise<any> {
     try {
-      const resModel = await CondominiumModel.create(data);
+      const resModel = await CondominiumRepository.create(data);
       console.log(resModel);
       return resModel;
     } catch (error) {
@@ -33,7 +33,7 @@ export class CondominiumService {
 
   static async updateCondominiumService(data: Condominium): Promise<any> {
     try {
-      const resModel = await CondominiumModel.update(data);
+      const resModel = await CondominiumRepository.update(data);
       console.log(resModel);
       return resModel;
     } catch (error) {
@@ -45,7 +45,7 @@ export class CondominiumService {
     try {
       const exists = await CondominiumService.findCondominiumService(data);
       if (exists.deleted === 0) {
-        const resModel = await CondominiumModel.delete(data);
+        const resModel = await CondominiumRepository.delete(data);
         console.log(resModel);
         return resModel;
       } else {

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { condominiumSchema } from '../../schemas/condominium/condominium.schema';
 import { CondominiumService } from '../../services/condominium/condominium.service';
 
-export class CondominiumController {
+export class CondominiumResource {
 
   static async findCondominium(req: Request, res: Response): Promise<any> {
     try {
