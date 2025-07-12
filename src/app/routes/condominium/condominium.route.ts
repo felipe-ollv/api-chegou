@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { CondominiumController } from "../../controllers/condominium/condominium.controller";
+import { CondominiumController } from "../../resources/condominium/condominium.resource";
 
 const router = Router();
 

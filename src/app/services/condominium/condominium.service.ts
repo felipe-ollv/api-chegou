@@ -49,7 +49,7 @@ export class CondominiumService {
         console.log(resModel);
         return resModel;
       } else {
-        return 400;
+        return { statusCode: 200, message: 'Condominio não existe!' };
       }
 
     } catch (error) {

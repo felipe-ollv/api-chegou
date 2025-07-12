@@ -55,7 +55,7 @@ export class CondominiumController {
       const value = req.params.value;
       const resp = await CondominiumService.deleteCondominiumService(value);
       console.log('RES', resp);
-      return res.status(200).json({ message: 'Condominio excluído com sucesso' });
+      return res.status(resp.statusCode).json({ message: resp.message });
     } catch (error: any) {
       console.log("ERROR", error);
       return res.status(400).json({ message: 'Erro ao excluir condominio' });
