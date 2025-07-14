@@ -1,9 +1,9 @@
 import db from '../../database'
 
-export class UserRepository {
-  private static tableName: 'users';
+export class UserAccessRepository {
+  private static tableName: 'user_access';
 
-  static async findUserByUuid(data: string): Promise<any> {
+  static async findUserAccessByUuid(data: string): Promise<any> {
     try {
       const user = await db(this.tableName)
         .where('uuid_user', data)
@@ -15,7 +15,7 @@ export class UserRepository {
     }
   }
 
-  static async createUser(data: any): Promise<any> {
+  static async createUserAccess(data: any): Promise<any> {
     try {
       const user = await db(this.tableName)
         .insert({
