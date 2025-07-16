@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const userAccessSchema = z.object({
   id: z.number().optional(),
   uuid_user_access: z.string().uuid().nonempty(),
-  // uuid_user_profile_fk:
+  uuid_user_profile_fk: z.string().uuid().nonempty(),
   status: z.string().nonempty(),
   password: z.string().nonempty(),
   created_at: z.date().optional(),

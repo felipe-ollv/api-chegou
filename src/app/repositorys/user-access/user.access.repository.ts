@@ -1,12 +1,12 @@
 import db from '../../database'
 
 export class UserAccessRepository {
-  private static tableName: 'user_access';
+  private static tableName = 'user_access';
 
   static async findUserAccessByUuid(data: string): Promise<any> {
     try {
       const user = await db(this.tableName)
-        .where('uuid_user', data)
+        .where('uuid_user_access', data)
         .andWhere('deleted', 0)
 
       return user;
