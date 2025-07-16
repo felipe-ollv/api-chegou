@@ -1,7 +1,7 @@
 import db from '../../database'
 
 export class UserRepository {
-  private static tableName: 'users';
+  private static tableName = 'users';
 
   static async findUserByUuid(data: string): Promise<any> {
     try {
