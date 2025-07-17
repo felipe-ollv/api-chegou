@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { userAccessSchema } from "../../schemas/user-access/user.access.schema";
-import { UserAccessService } from "../../services/user-access/user.access.service";
+import { userAccessSchema } from "../schemas/user.access.schema";
+import { UserAccessService } from "../services/user.access.service";
 
 export class UserAccessResource {
 

@@ -1,5 +1,5 @@
-import { notificationSchema } from "../../schemas/notification/notification.schema";
-import { NotificationRepository } from "../../repositorys/notification/notification.repository";
+import { notificationSchema } from "../schemas/notification.schema";
+import { NotificationRepository } from "../domain/notification/notification.repository";
 
 export class NotificationService {
   static async findNotificationService(data: any): Promise<any> {

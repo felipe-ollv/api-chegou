@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { CondominiumResource } from "../../resources/condominium/condominium.resource";
+import { CondominiumResource } from "../resource/condominium.resource";
 
 const router = Router();
 

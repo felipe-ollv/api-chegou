@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { NotificationService } from "../../services/notification/notification.service";
+import { NotificationService } from "../services/notification.service";
 
 export class NotificationResource {
   static async findNotification(req: Request, res: Response): Promise<any> {

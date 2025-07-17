@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import condominiumRoutes from './condominium/condominium.route';
-import userRoutes from './user/user.route';
-import userProfileRoutes from './user-profile/user.profile.route';
-import userAccessRoutes from './user-access/user.access.route';
-import notificationRoutes from './notification/notification.route';
+import condominiumRoutes from './condominium.route';
+import userRoutes from './user.route';
+import userProfileRoutes from './user.profile.route';
+import userAccessRoutes from './user.access.route';
+import notificationRoutes from './notification.route';
 
 const router = Router();
 

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { NotificationResource } from "../../resources/notification/notification.resource";
+import { NotificationResource } from "../resource/notification.resource";
 
 const router = Router();
 

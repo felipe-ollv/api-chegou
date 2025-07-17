@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { userProfileSchema } from "../../schemas/user-profile/user.profile.schema";
-import { UserProfileService } from "../../services/user-profile/user.profile.service";
+import { userProfileSchema } from "../schemas/user.profile.schema";
+import { UserProfileService } from "../services/user.profile.service";
 
 export class UserProfileResource {
 

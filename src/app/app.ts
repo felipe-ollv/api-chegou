@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
-import { errorHandler, notFound } from './middlewares/errorHandler';
+import { errorHandler, notFound } from './middleware/errorHandler';
 import routes from './routes';
 import dotenv from 'dotenv';
 dotenv.config();

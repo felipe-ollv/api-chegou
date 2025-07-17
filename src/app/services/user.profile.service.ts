@@ -1,5 +1,5 @@
-import { UserProfile } from "../../schemas/user-profile/user.profile.schema";
-import { UserProfileRepository } from "../../repositorys/user-profile/user.profile.repository";
+import { UserProfile } from "../schemas/user.profile.schema";
+import { UserProfileRepository } from "../domain/user/user.profile.repository";
 
 export class UserProfileService {
 
