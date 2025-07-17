@@ -3,6 +3,6 @@ import { NoteDataResource } from "../resource/note.data.resource";
 
 const router = Router();
 
-router.get('/find-notification/:value', NoteDataResource.findNoteData);
+router.get('/find-note-data/:value', NoteDataResource.findNoteData);
 
 export default router;
