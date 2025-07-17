@@ -30,7 +30,7 @@ export class CondominiumResource {
       const condominiumData = condominiumSchema.parse(req.body);
       const resp = await CondominiumService.registerCondominiumService(condominiumData);
       console.log('RES', resp);
-      return res.status(201).json({ message: 'Condominio cadastrado com sucesso' });
+      return res.status(201).json(resp);
     } catch (error: any) {
       console.log("ERROR", error);
       return res.status(400).json({ message: 'Erro ao cadastrar condominio, verifique as informações' });
@@ -43,7 +43,7 @@ export class CondominiumResource {
       console.log(condominiumData)
       const resp = await CondominiumService.updateCondominiumService(condominiumData);
       console.log('RES', resp);
-      return res.status(200).json({ message: 'Condominio atualizado com sucesso' });
+      return res.status(200).json(resp);
     } catch (error: any) {
       console.log("ERROR", error);
       return res.status(400).json({ message: 'Erro ao atualizar condominio, verifique as informações' });

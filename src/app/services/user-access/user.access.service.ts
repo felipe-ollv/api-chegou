@@ -1,5 +1,5 @@
 import { UserAccess } from "../../schemas/user-access/user.access.schema";
-import { UserAccessRepository } from "../..//repositorys/user-access/user.access.repository";
+import { UserAccessRepository } from "../../repositorys/user-access/user.access.repository";
 
 export class UserAccessService {
 
