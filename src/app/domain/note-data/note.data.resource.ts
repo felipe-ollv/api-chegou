@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { NoteDataService } from "../services/note.data.service";
+import { NoteDataService } from "./note.data.service";
 
 export class NoteDataResource {
   static async findNoteData(req: Request, res: Response): Promise<any> {

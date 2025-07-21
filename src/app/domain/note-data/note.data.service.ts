@@ -1,5 +1,4 @@
-import { notificationSchema } from "../schemas/notification.schema";
-import { NoteDataRepository } from "../domain/note-data/note.data.repository";
+import { NoteDataRepository } from "./note.data.repository";
 
 export class NoteDataService {
   static async findNoteDataService(data: any): Promise<any> {

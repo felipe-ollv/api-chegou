@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { NoteDataResource } from "../resource/note.data.resource";
+import { NoteDataResource } from "./note.data.resource";
 
 const router = Router();
 

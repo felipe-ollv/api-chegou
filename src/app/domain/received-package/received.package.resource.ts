@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ReceivedPackageService } from "../services/received.package.service";
+import { ReceivedPackageService } from "./received.package.service";
 
 export class ReceivedPackageResource {
   static async findReceivedPackage(req: Request, res: Response): Promise<any> {

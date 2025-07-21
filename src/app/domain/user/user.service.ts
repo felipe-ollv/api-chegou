@@ -1,5 +1,5 @@
-import { User } from "../schemas/user.schema";
-import { UserRepository } from "../domain/user/user.repository";
+import { User } from "./user.schema";
+import { UserRepository } from "./user.repository";
 
 export class UserService {
 

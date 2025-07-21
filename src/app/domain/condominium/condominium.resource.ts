@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { condominiumSchema } from '../schemas/condominium.schema';
-import { CondominiumService } from '../services/condominium.service';
+import { condominiumSchema } from './condominium.schema';
+import { CondominiumService } from './condominium.service';
 
 export class CondominiumResource {
 

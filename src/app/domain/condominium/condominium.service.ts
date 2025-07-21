@@ -1,5 +1,5 @@
-import { Condominium } from "../schemas/condominium.schema";
-import { CondominiumRepository } from "../domain/condominium/condominium.repository";
+import { Condominium } from "./condominium.schema";
+import { CondominiumRepository } from "./condominium.repository";
 
 export class CondominiumService {
 

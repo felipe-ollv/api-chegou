@@ -1,5 +1,5 @@
-import { receivedPackageSchema } from "../schemas/received.package.schema";
-import { ReceivedPackageRepository } from "../domain/received-package/received.package.repository";
+import { receivedPackageSchema } from "./received.package.schema";
+import { ReceivedPackageRepository } from "./received.package.repository";
 
 export class ReceivedPackageService {
   static async findReceivedPackageService(data: any): Promise<any> {

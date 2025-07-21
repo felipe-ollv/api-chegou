@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { UserAccessResource } from "../resource/user.access.resource";
+import { UserAccessResource } from "./user.access.resource";
 
 const router = Router();
 

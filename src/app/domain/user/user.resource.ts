@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { userSchema } from "../schemas/user.schema";
-import { UserService } from "../services/user.service";
+import { userSchema } from "./user.schema";
+import { UserService } from "./user.service";
 
 export class UserResource {
 

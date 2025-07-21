@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { ReceivedPackageResource } from "../resource/received.package.resource";
+import { ReceivedPackageResource } from "./received.package.resource";
 
 const router = Router();
 
