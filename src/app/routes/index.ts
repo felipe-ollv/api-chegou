@@ -1,4 +1,7 @@
 import { Router } from 'express';
+
+import authUserRoutes from '../auth/user.auth.route';
+
 import condominiumRoutes from '../domain/condominium/condominium.route';
 import userRoutes from '../domain/user/user.route';
 import userProfileRoutes from '../domain/user-profile/user.profile.route';
@@ -9,6 +12,7 @@ import receivedPackageRoutes from '../domain/received-package/received.package.r
 
 const router = Router();
 
+router.use('/login', authUserRoutes);
 router.use('/condominium', condominiumRoutes);
 router.use('/user', userRoutes);
 router.use('/user-profile', userProfileRoutes);

@@ -6,7 +6,7 @@ export const userProfileSchema = z.object({
   uuid_user_fk: z.string().uuid().nonempty(),
   uuid_condominium_fk: z.string().uuid().nonempty(),
   apartment_block: z.string().nonempty(),
-  apartment: z.string().nonempty(),
+  apartment: z.number().nonnegative(),
   phone_number: z.string().nonempty(),
   type_profile: z.string().nonempty(),
   created_at: z.date().optional(),

@@ -1,8 +1,8 @@
-export type UserProfileType = {
-  OWNER: 'OWNER';
-  TENANT: 'TENANT';
-  BUILDING_MANAGER: 'BUILDING_MANAGER';
-  CARETAKER: 'CARETAKER';
-  STAFF: 'STAFF';
-  ADMIN: 'ADMIN';
+export enum UserProfileType {
+  OWNER = 'OWNER',
+  TENANT = 'TENANT',
+  BUILDING_MANAGER = 'BUILDING_MANAGER',
+  CARETAKER = 'CARETAKER',
+  STAFF = 'STAFF',
+  ADMIN = 'ADMIN',
 }

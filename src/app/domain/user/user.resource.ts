@@ -17,12 +17,13 @@ export class UserResource {
 
   static async registerUser(req: Request, res: Response): Promise<any> {
     try {
-      const userData = userSchema.parse(req.body);
-      const resp = await UserService.registerUserService(userData);
+      console.log(`objeto user resource`, req.body)
+      // const userData = userSchema.parse(req.body);
+      const resp = await UserService.registerUserService(req.body);
 
       return res.status(200).json(resp);
     } catch (error) {
-      return res.status(400).json({ message: 'Erro ao cadastrar usuário, verifique as informações' });
+      return res.status(400).json({ message: 'Erro ao cadastrar usuário' });
     }
   }
 }

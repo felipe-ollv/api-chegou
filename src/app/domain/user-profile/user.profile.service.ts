@@ -20,4 +20,13 @@ export class UserProfileService {
       return error;
     }
   }
+
+  static async findUserProfileByPhoneService(data: any): Promise<any> {
+    try {
+      const resModel = await UserProfileRepository.findUserProfileByPhoneService(data);
+      return resModel;
+    } catch (error) {
+      return error;
+    }
+  }
 }

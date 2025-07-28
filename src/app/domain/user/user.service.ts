@@ -1,5 +1,11 @@
 import { User } from "./user.schema";
+import { UserProfile } from "../user-profile/user.profile.schema";
+import { UserAccess } from "../user-access/user.access.schema";
 import { UserRepository } from "./user.repository";
+import { UserProfileRepository } from "../user-profile/user.profile.repository";
+import { UserAccessRepository } from "../user-access/user.access.repository";
+import { generateUUID } from '../../utils/uuid.generator';
+import { UserProfileType } from '../../types/user-profile-type';
 
 export class UserService {
 
@@ -12,12 +18,45 @@ export class UserService {
     }
   }
 
-  static async registerUserService(data: User): Promise<any> {
+  static async registerUserService(data: any): Promise<any> {
     try {
-      const resModel = await UserRepository.createUser(data);
-      return resModel;
+      const user: User = {
+        "uuid_user": generateUUID(),
+        "name": data.name,
+        "last_name": "",
+        "borned": data.birthdate
+      }
+
+      const user_profile: UserProfile = {
+        "uuid_user_profile": generateUUID(),
+        "uuid_user_fk": user.uuid_user,
+        "uuid_condominium_fk": data.condominium,
+        "apartment_block": data.apartment_block,
+        "apartment": parseInt(data.apartment),
+        "phone_number": data.phone_number,
+        "type_profile": UserProfileType.ADMIN
+      }
+
+      const user_access: UserAccess = {
+        "uuid_user_access": generateUUID(),
+        "uuid_user_profile_fk": user_profile.uuid_user_profile,
+        "status": 'ACTIVE',
+        "password": data.password
+      }
+
+      const resPromiseAll = await Promise.all([
+        UserRepository.createUser(user),
+        UserProfileRepository.createUserProfile(user_profile),
+        UserAccessRepository.createUserAccess(user_access)
+      ])
+      console.log('Promise all', resPromiseAll);
+      if (resPromiseAll.length > 0) {
+        return { message: "Cadastrado com sucesso!" };
+      }
+
+      return { message: "Falha ao cadastrar, tente nomvamente mais tarde" };
     } catch (error) {
-      return error;
+      return { message: "Erro ao cadastrar!" };
     }
   }
 }
