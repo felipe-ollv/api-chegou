@@ -13,7 +13,7 @@ export class ReceivedPackageService {
 
   static async registerReceivedPackageService(data: Partial<ReceivedPackage>): Promise<any> {
     try {
-      const resModel = await ReceivedPackageRepository.create(data);
+      const resModel = await ReceivedPackageRepository.createPackage(data);
       return resModel;
     } catch (error) {
       return error
@@ -22,7 +22,7 @@ export class ReceivedPackageService {
 
   static async updateReceivedPackageService(data: Partial<ReceivedPackage>): Promise<any> {
     try {
-      const resModel = await ReceivedPackageRepository.update(data);
+      const resModel = await ReceivedPackageRepository.updatePackage(data);
       return resModel;
     } catch (error) {
       return error

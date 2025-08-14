@@ -23,7 +23,7 @@ export class UserProfileService {
 
   static async findUserProfileByPhoneService(data: any): Promise<any> {
     try {
-      const resModel = await UserProfileRepository.findUserProfileByPhoneService(data);
+      const resModel = await UserProfileRepository.findUserProfileByPhone(data);
       return resModel;
     } catch (error) {
       return error;

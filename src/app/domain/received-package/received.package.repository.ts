@@ -16,7 +16,7 @@ export class ReceivedPackageRepository {
     }
   }
 
-  static async create(packageData: any): Promise<any> {
+  static async createPackage(packageData: any): Promise<any> {
     try {
       const createdPackage = await db(this.tableName)
         .insert({
@@ -31,10 +31,10 @@ export class ReceivedPackageRepository {
     }
   }
 
-  static async update(packageData: any): Promise<any> {
+  static async updatePackage(packageData: any): Promise<any> {
     try {
       const updatedPackageData = await db(this.tableName)
-        .where('uuid_condominium', packageData.uuid_condominium)
+        .where('uuid_package', packageData.uuid_package)
         .update(packageData)
 
       console.log('UPDATE', updatedPackageData);

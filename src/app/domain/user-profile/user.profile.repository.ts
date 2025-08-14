@@ -28,7 +28,7 @@ export class UserProfileRepository {
     }
   }
 
-  static async findUserProfileByPhoneService(data: any): Promise<any> {
+  static async findUserProfileByPhone(data: any): Promise<any> {
     try {
       const phone_number = typeof data === "object" ? data.phone_number : data;
       const userProfile = await db('user_profile')

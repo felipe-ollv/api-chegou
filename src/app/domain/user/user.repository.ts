@@ -27,4 +27,18 @@ export class UserRepository {
       return error;
     }
   }
+
+  static async updateUser(userData: any): Promise<any> {
+    try {
+      const user = await db(this.tableName)
+        .where('uuid_user', userData.uuid_user)
+        .update(userData)
+
+      console.log('UPDATE', user);
+
+      return user;
+    } catch (error) {
+      return error;
+    }
+  }
 }
