@@ -10,9 +10,36 @@ export class ReceivedPackageRepository {
         .andWhere('deleted', 0)
         .select();
 
-      console.log('FIND BY', resPackage);
-
       return resPackage;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  static async create(packageData: any): Promise<any> {
+    try {
+      const createdPackage = await db(this.tableName)
+        .insert({
+          ...packageData
+        })
+
+      console.log('CREATE', createdPackage);
+
+      return createdPackage;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  static async update(packageData: any): Promise<any> {
+    try {
+      const updatedPackageData = await db(this.tableName)
+        .where('uuid_condominium', packageData.uuid_condominium)
+        .update(packageData)
+
+      console.log('UPDATE', updatedPackageData);
+
+      return updatedPackageData;
     } catch (error) {
       return error;
     }

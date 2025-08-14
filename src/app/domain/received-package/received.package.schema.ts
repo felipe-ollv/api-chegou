@@ -10,3 +10,5 @@ export const receivedPackageSchema = z.object({
   updated_at: z.date().optional(),
   deleted: z.number().optional(),
 });
+
+export type ReceivedPackage = z.infer<typeof receivedPackageSchema>;

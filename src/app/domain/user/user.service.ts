@@ -6,6 +6,7 @@ import { UserProfileRepository } from "../user-profile/user.profile.repository";
 import { UserAccessRepository } from "../user-access/user.access.repository";
 import { generateUUID } from '../../utils/uuid.generator';
 import { UserProfileType } from '../../types/user-profile-type';
+import { createHash } from "../../middleware/hash-password";
 
 export class UserService {
 
@@ -19,6 +20,7 @@ export class UserService {
   }
 
   static async registerUserService(data: any): Promise<any> {
+    const psswrd = await createHash(data.password);
     try {
       const user: User = {
         "uuid_user": generateUUID(),
@@ -41,7 +43,7 @@ export class UserService {
         "uuid_user_access": generateUUID(),
         "uuid_user_profile_fk": user_profile.uuid_user_profile,
         "status": 'ACTIVE',
-        "password": data.password
+        "password": psswrd
       }
 
       const resPromiseAll = await Promise.all([

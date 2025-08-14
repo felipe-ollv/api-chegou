@@ -1,25 +1,22 @@
 import { UserProfileService } from "../domain/user-profile/user.profile.service";
-// import * as bcrypt from "bcryptjs";
+import { generateAccessToken } from './jwt';
+import bcrypt from 'bcrypt';
 
 export class UserAuthService {
   static async userAuthService(value: any): Promise<any> {
     try {
       const userProfile = await UserProfileService.findUserProfileByPhoneService(value.phone_number);
-      console.log('PROFILE', userProfile)
-      if (!userProfile) {
-        throw new Error("Telefone não encontrado");
+      if (userProfile === undefined) {
+        return { message: 'Falha ao efetuar login, verifique as informações!', code: 'NOK' }
+      } else {
+        const senhaCorreta = await bcrypt.compare(value.password, userProfile.password);
+        if (!senhaCorreta) {
+          return { message: 'Falha ao efetuar login, verifique as informações!', code: 'NOK' }
+        }
+
+        const token = generateAccessToken(userProfile.phone_number);
+        return token;
       }
-
-      // const senhaCorreta = await bcrypt.compare(password, password);
-      // if (!senhaCorreta) {
-      //   throw new Error("Senha incorreta");
-      // }
-
-      // return {
-      //   success: true,
-      //   userId: userProfile.user_id,
-      //   profile: userProfile,
-      // };
     } catch (error) {
       return error;
     }
