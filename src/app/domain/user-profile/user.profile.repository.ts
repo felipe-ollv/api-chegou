@@ -50,4 +50,31 @@ export class UserProfileRepository {
       throw error;
     }
   }
+
+  static async findUserProfileByComposedData(data: any): Promise<any> {
+    try {
+      const nameLike = `%${data.recipient.trim().toLowerCase()}%`;
+      const q = db(this.tableName)
+        .select(
+          "user_profile.*",
+          "users.*",
+          "condominium.*"
+        )
+        .leftJoin("users", "user_profile.uuid_user_fk", "users.uuid_user")
+        .leftJoin(
+          "condominium",
+          "user_profile.uuid_condominium_fk",
+          "condominium.uuid_condominium"
+        )
+        .where("user_profile.deleted", 0)
+        .andWhere("user_profile.apartment_block", data.block)
+        .andWhere("user_profile.apartment", data.apartment)
+        .andWhereRaw('LOWER(users.name) LIKE ?', [nameLike]);
+
+      const row = await q.first();
+      return row;
+    } catch (error) {
+      return error;
+    }
+  }
 }

@@ -6,9 +6,18 @@ export class ReceivedPackageRepository {
   static async findbyUUid(data: string): Promise<any> {
     try {
       const resPackage = await db(this.tableName)
-        .where('uuid_package', data)
-        .andWhere('deleted', 0)
-        .select();
+        .select(
+          "user_profile.apartment_block",
+          "user_profile.apartment",
+          "users.name",
+          "received_package.*",
+          "condominium.condominium_name"
+        )
+        .leftJoin("user_profile", "received_package.uuid_user_profile_receiver", "user_profile.uuid_user_profile")
+        .leftJoin("users", "user_profile.uuid_user_fk", "users.uuid_user")
+        .leftJoin("condominium", "user_profile.uuid_condominium_fk", "condominium.uuid_condominium")
+        .where('received_package.uuid_user_profile_receiver', data)
+        .andWhere('received_package.deleted', 0)
 
       return resPackage;
     } catch (error) {

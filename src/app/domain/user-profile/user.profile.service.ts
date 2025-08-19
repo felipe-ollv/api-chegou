@@ -29,4 +29,13 @@ export class UserProfileService {
       return error;
     }
   }
+
+  static async findUserProfileByComposedData(data: any): Promise<any> {
+    try {
+      const resModel = await UserProfileRepository.findUserProfileByComposedData(data);
+      return resModel;
+    } catch (error) {
+      return error;
+    }
+  }
 }
