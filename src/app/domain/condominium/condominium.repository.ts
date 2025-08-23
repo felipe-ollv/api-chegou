@@ -39,8 +39,6 @@ export class CondominiumRepository {
           ...condominium
         })
 
-      console.log('CREATE', createdCondominium);
-
       return createdCondominium;
     } catch (error) {
       return error;

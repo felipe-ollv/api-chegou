@@ -7,6 +7,7 @@ export const condominiumSchema = z.object({
   address: z.string().nonempty(),
   address_number: z.string().nonempty(),
   cep: z.string().nonempty(),
+  ordinance: z.boolean().optional(),
   created_at: z.date().optional(),
   updated_at: z.date().optional(),
   deleted: z.number().optional()

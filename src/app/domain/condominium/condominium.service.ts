@@ -24,7 +24,6 @@ export class CondominiumService {
   static async registerCondominiumService(data: Condominium): Promise<any> {
     try {
       const resModel = await CondominiumRepository.create(data);
-      console.log(resModel);
       return resModel;
     } catch (error) {
       return error;

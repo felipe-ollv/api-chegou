@@ -36,7 +36,7 @@ export class UserService {
         "apartment_block": data.apartment_block,
         "apartment": parseInt(data.apartment),
         "phone_number": data.phone_number,
-        "type_profile": UserProfileType.ADMIN
+        "type_profile": data.type_profile
       }
 
       const user_access: UserAccess = {

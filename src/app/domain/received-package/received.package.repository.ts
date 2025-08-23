@@ -11,13 +11,15 @@ export class ReceivedPackageRepository {
           "user_profile.apartment",
           "users.name",
           "received_package.*",
-          "condominium.condominium_name"
+          "condominium.condominium_name",
+          "condominium.ordinance"
         )
         .leftJoin("user_profile", "received_package.uuid_user_profile_receiver", "user_profile.uuid_user_profile")
         .leftJoin("users", "user_profile.uuid_user_fk", "users.uuid_user")
         .leftJoin("condominium", "user_profile.uuid_condominium_fk", "condominium.uuid_condominium")
         .where('received_package.uuid_user_profile_receiver', data)
         .andWhere('received_package.deleted', 0)
+        .andWhere('condominium.deleted', 0)
 
       return resPackage;
     } catch (error) {
@@ -32,8 +34,6 @@ export class ReceivedPackageRepository {
           ...packageData
         })
 
-      console.log('CREATE', createdPackage);
-
       return createdPackage;
     } catch (error) {
       return error;
@@ -45,8 +45,6 @@ export class ReceivedPackageRepository {
       const updatedPackageData = await db(this.tableName)
         .where('uuid_package', packageData.uuid_package)
         .update(packageData)
-
-      console.log('UPDATE', updatedPackageData);
 
       return updatedPackageData;
     } catch (error) {
