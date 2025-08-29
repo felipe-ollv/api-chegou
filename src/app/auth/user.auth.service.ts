@@ -14,7 +14,7 @@ export class UserAuthService {
           return { message: 'Falha ao efetuar login, verifique as informações!', code: 'NOK' }
         }
 
-        const token = generateAccessToken(userProfile.phone_number);
+        const token = generateAccessToken(userProfile);
         return token;
       }
     } catch (error) {

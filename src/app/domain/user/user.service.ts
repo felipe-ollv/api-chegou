@@ -5,7 +5,7 @@ import { UserRepository } from "./user.repository";
 import { UserProfileRepository } from "../user-profile/user.profile.repository";
 import { UserAccessRepository } from "../user-access/user.access.repository";
 import { generateUUID } from '../../utils/uuid.generator';
-import { UserProfileType } from '../../types/user-profile-type';
+import { UserChain } from './user.chain';
 import { createHash } from "../../middleware/hash-password";
 
 export class UserService {
@@ -36,7 +36,7 @@ export class UserService {
         "apartment_block": data.apartment_block,
         "apartment": parseInt(data.apartment),
         "phone_number": data.phone_number,
-        "type_profile": data.type_profile
+        "type_profile": UserChain.handleProfileType(data.type_profile)
       }
 
       const user_access: UserAccess = {

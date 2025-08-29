@@ -20,7 +20,7 @@ export class ReceivedPackageService {
       const userData: any = await UserProfileService.findUserProfileByComposedData(data);
       const receivedPackage: Partial<ReceivedPackage> = {
         "uuid_package": generateUUID(),
-        "uuid_user_profile_receiver": "2ec65ee0-708e-499c-8268-ef1679cccea5",
+        "uuid_user_profile_receiver": data.received,
         "uuid_user_profile_owner": userData.uuid_user_profile,
         "status_package": "RECEIVED"
       }
