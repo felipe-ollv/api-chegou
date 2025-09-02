@@ -11,7 +11,7 @@ export class UserProfileResource {
 
       return res.status(200).json(resp);
     } catch (error) {
-      return res.status(400).json({ message: 'Erro ao listar perfil usuario' });
+      return res.status(400).json({ message: 'Erro ao listar perfil do usuário' });
     }
   }
 
@@ -22,7 +22,7 @@ export class UserProfileResource {
 
       return res.status(200).json(resp);
     } catch (error) {
-      return res.status(400).json({ message: 'Erro ao cadastrar perfil do usuario, verifique as informações' });
+      return res.status(400).json({ message: 'Erro ao cadastrar perfil do usuário, verifique as informações' });
     }
   }
 }

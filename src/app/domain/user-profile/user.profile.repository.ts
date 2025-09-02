@@ -6,8 +6,19 @@ export class UserProfileRepository {
   static async findUserProfileByUuid(data: string): Promise<any> {
     try {
       const userProfile = await db(this.tableName)
-        .where('uuid_user_profile', data)
-        .andWhere('deleted', 0)
+        .select(
+          "user_profile.apartment_block",
+          "user_profile.apartment",
+          "user_profile.phone_number",
+          "user_profile.type_profile",
+          "users.name",
+          "condominium.condominium_name",
+        )
+        .leftJoin("users", "user_profile.uuid_user_fk", "users.uuid_user")
+        .leftJoin("condominium", "user_profile.uuid_condominium_fk", "condominium.uuid_condominium")
+        .where('user_profile.uuid_user_profile', data)
+        .andWhere('user_profile.deleted', 0)
+        .andWhere('condominium.deleted', 0);
 
       return userProfile;
     } catch (error) {

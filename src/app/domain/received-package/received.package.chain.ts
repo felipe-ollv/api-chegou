@@ -1,4 +1,3 @@
-import { boolean } from "zod";
 
 export class ReceivedPackageChain {
   static async receiveHandler(data: any, uuidUserProfile: string) {

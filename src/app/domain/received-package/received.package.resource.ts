@@ -30,7 +30,7 @@ export class ReceivedPackageResource {
       const resp = await ReceivedPackageService.registerReceivedPackageService(packageData);
       return res.status(200).json(resp);
     } catch (error) {
-      return res.status(400).json({ message: 'Erro ao cadastrar pacote' });
+      return res.status(400).json({ message: 'Erro ao atualizar pacote' });
     }
   }
 }

@@ -17,7 +17,6 @@ export class UserResource {
 
   static async registerUser(req: Request, res: Response): Promise<any> {
     try {
-      console.log(`objeto user resource`, req.body)
       // const userData = userSchema.parse(req.body);
       const resp = await UserService.registerUserService(req.body);
 
