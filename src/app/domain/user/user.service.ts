@@ -52,13 +52,22 @@ export class UserService {
         UserAccessRepository.createUserAccess(user_access)
       ])
       console.log('Promise all', resPromiseAll);
-      if (resPromiseAll.length > 0) {
+      if (resPromiseAll.length === 3) {
         return { message: "Cadastrado com sucesso!" };
       }
 
       return { message: "Falha ao cadastrar, tente nomvamente mais tarde" };
     } catch (error) {
       return { message: "Erro ao cadastrar!" };
+    }
+  }
+
+  static async updateUserServiceByProfile(data: any) {
+    try {
+      await UserRepository.updateUserByProfile(data);
+      return { message: "Usuário atualizado" }
+    } catch (error) {
+      return { message: "Erro ao atualizar!" };
     }
   }
 }

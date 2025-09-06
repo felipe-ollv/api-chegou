@@ -38,7 +38,6 @@ const createApp = (): Application => {
   });
 
   app.use(`${apiUrl}`, publicRoutes);
-  // app.use(`${apiUrl}/auth`, authRoutes);
 
   app.use(`${apiUrl}`, requireAuth(), routes);
 

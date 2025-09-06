@@ -25,4 +25,15 @@ export class UserProfileResource {
       return res.status(400).json({ message: 'Erro ao cadastrar perfil do usuário, verifique as informações' });
     }
   }
+
+  static async updateUserProfile(req: Request, res: Response): Promise<any> {
+    try {
+      const userProfileData = req.body;
+      const resp = await UserProfileService.updateUserProfileService(userProfileData);
+
+      return res.status(200).json(resp);
+    } catch (error) {
+      return res.status(400).json({ message: 'Erro ao atualizar perfil do usuário, verifique as informações' });
+    }
+  }
 }

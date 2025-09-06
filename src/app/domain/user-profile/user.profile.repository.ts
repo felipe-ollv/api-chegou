@@ -12,6 +12,7 @@ export class UserProfileRepository {
           "user_profile.phone_number",
           "user_profile.type_profile",
           "users.name",
+          "users.uuid_user",
           "condominium.condominium_name",
         )
         .leftJoin("users", "user_profile.uuid_user_fk", "users.uuid_user")
@@ -34,6 +35,23 @@ export class UserProfileRepository {
         });
 
       return userProfile;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  static async updateUserProfile(data: any): Promise<any> {
+    try {
+      const updated = await db(this.tableName)
+        .where('uuid_user_profile', data.uuid)
+        .update({
+          apartment_block: data.block,
+          apartment: data.apartment,
+          phone_number: data.phone,
+          updated_at: new Date()
+        });
+
+      return updated;
     } catch (error) {
       return error;
     }

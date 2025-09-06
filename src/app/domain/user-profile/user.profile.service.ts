@@ -1,5 +1,6 @@
 import { UserProfile } from "./user.profile.schema";
 import { UserProfileRepository } from "./user.profile.repository";
+import { UserService } from "../user/user.service";
 
 export class UserProfileService {
 
@@ -16,6 +17,22 @@ export class UserProfileService {
     try {
       const resModel = await UserProfileRepository.createUserProfile(data);
       return resModel;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  static async updateUserProfileService(data: any): Promise<any> {
+    try {
+      const userProfile = await UserProfileRepository.findUserProfileByUuid(data.uuid);
+      data.uuid_user = userProfile[0].uuid_user;
+
+      const resPromisseAll = await Promise.all([
+        UserService.updateUserServiceByProfile(data),
+        UserProfileRepository.updateUserProfile(data)
+      ])
+
+      return resPromisseAll;
     } catch (error) {
       return error;
     }
