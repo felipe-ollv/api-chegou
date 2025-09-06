@@ -7,16 +7,21 @@ export class ReceivedPackageRepository {
     try {
       const resPackage = await db(this.tableName)
         .select(
-          "user_profile.apartment_block",
-          "user_profile.apartment",
-          "users.name",
-          "received_package.*",
-          "condominium.condominium_name",
-          "condominium.ordinance"
+          'owner_profile.apartment_block as blockOwner',
+          'owner_profile.apartment as apartmentOwner',
+          'owner_user.name as ownerName',
+          'receiver_profile.apartment_block as blockReceiver',
+          'receiver_profile.apartment as apartmentReceiver',
+          'receiver_user.name as receiverName',
+          'received_package.*',
+          'condominium.condominium_name',
+          'condominium.ordinance'
         )
-        .leftJoin("user_profile", "received_package.uuid_user_profile_receiver", "user_profile.uuid_user_profile")
-        .leftJoin("users", "user_profile.uuid_user_fk", "users.uuid_user")
-        .leftJoin("condominium", "user_profile.uuid_condominium_fk", "condominium.uuid_condominium")
+        .leftJoin('user_profile as owner_profile', 'received_package.uuid_user_profile_owner', 'owner_profile.uuid_user_profile')
+        .leftJoin('users as owner_user', 'owner_profile.uuid_user_fk', 'owner_user.uuid_user')
+        .leftJoin('user_profile as receiver_profile', 'received_package.uuid_user_profile_receiver', 'receiver_profile.uuid_user_profile')
+        .leftJoin('users as receiver_user', 'receiver_profile.uuid_user_fk', 'receiver_user.uuid_user')
+        .leftJoin('condominium', 'owner_profile.uuid_condominium_fk', 'condominium.uuid_condominium')
         .where('received_package.uuid_user_profile_receiver', data)
         .andWhere('received_package.deleted', 0)
         .andWhere('condominium.deleted', 0)
