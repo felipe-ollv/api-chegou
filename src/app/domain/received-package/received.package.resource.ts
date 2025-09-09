@@ -17,8 +17,9 @@ export class ReceivedPackageResource {
   static async registerReceivedPackage(req: Request, res: Response): Promise<any> {
     try {
       // const packageData = receivedPackageSchema.partial().parse(req.body);
+
       const resp = await ReceivedPackageService.registerReceivedPackageService(req.body);
-      return res.status(200).json(resp);
+      return res.json(resp);
     } catch (error) {
       return res.status(400).json({ message: 'Erro ao cadastrar pacote' });
     }

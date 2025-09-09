@@ -2,6 +2,7 @@ import { ReceivedPackage } from "./received.package.schema";
 import { ReceivedPackageRepository } from "./received.package.repository";
 import { generateUUID } from '../../utils/uuid.generator';
 import { UserProfileService } from "../user-profile/user.profile.service";
+import { NotificationService } from '../notification/notification.service';
 import { ReceivedPackageChain } from './received.package.chain';
 
 export class ReceivedPackageService {
@@ -17,26 +18,51 @@ export class ReceivedPackageService {
 
   static async registerReceivedPackageService(data: any): Promise<any> {
     try {
+      const uuid_package = generateUUID();
       const userData: any = await UserProfileService.findUserProfileByComposedData(data);
+
+      if (userData === undefined) {
+        return { message: 'Usuário não cadastrado!', error: 400 }
+      }
+
       const receivedPackage: Partial<ReceivedPackage> = {
-        "uuid_package": generateUUID(),
+        "uuid_package": uuid_package,
         "uuid_user_profile_receiver": data.received,
         "uuid_user_profile_owner": userData.uuid_user_profile,
-        "status_package": "RECEIVED"
+        "status_package": data.received === userData.uuid_user_profile ? "DELIVERED" : "RECEIVED",
+        "note": data.note
       }
+
       const resModel = await ReceivedPackageRepository.createPackage(receivedPackage);
-      return resModel;
+
+      if (resModel.data) {
+        // CHAMAR FILA PARA ENVIO DE NOTIFICACAO
+
+        const notificationData = {
+          "uuid_notification": generateUUID(),
+          "uuid_package_fk": uuid_package,
+          "status": "SENDED"
+        }
+        await NotificationService.createNotificationService(notificationData);
+      } else {
+        return { message: 'Falha ao registrar recebimento', code: 400 }
+      }
+
     } catch (error) {
-      return error
+      return { message: 'Erro interno', code: 500 }
     }
   }
 
   static async updateReceivedPackageService(data: Partial<ReceivedPackage>): Promise<any> {
     try {
       const resModel = await ReceivedPackageRepository.updatePackage(data);
-      return resModel;
+      if (resModel.data) {
+        return { message: 'Recebimento atualizado', code: 200 }
+      } else {
+        return { message: 'Falha ao atualizar', code: 400 }
+      }
     } catch (error) {
-      return error
+      return { message: 'Erro interno', code: 500 }
     }
   }
 }

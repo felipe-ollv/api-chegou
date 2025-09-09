@@ -6,20 +6,38 @@ export class UserProfileRepository {
   static async findUserProfileByUuid(data: string): Promise<any> {
     try {
       const userProfile = await db(this.tableName)
-        .select(
-          "user_profile.apartment_block",
-          "user_profile.apartment",
-          "user_profile.phone_number",
-          "user_profile.type_profile",
-          "users.name",
-          "users.uuid_user",
-          "condominium.condominium_name",
-        )
-        .leftJoin("users", "user_profile.uuid_user_fk", "users.uuid_user")
-        .leftJoin("condominium", "user_profile.uuid_condominium_fk", "condominium.uuid_condominium")
-        .where('user_profile.uuid_user_profile', data)
+        .leftJoin('users', 'user_profile.uuid_user_fk', 'users.uuid_user')
+        .leftJoin('condominium', 'user_profile.uuid_condominium_fk', 'condominium.uuid_condominium')
+        .leftJoin('received_package', 'user_profile.uuid_user_profile', 'received_package.uuid_user_profile_receiver')
+        .where('user_profile.uuid_user_profile', 'eb09c777-d489-4e8e-b65e-f1ae3893f4ae')
         .andWhere('user_profile.deleted', 0)
-        .andWhere('condominium.deleted', 0);
+        .andWhere('condominium.deleted', 0)
+        .andWhere('received_package.deleted', 0)
+        .select(
+          'user_profile.apartment_block',
+          'user_profile.apartment',
+          'user_profile.phone_number',
+          'user_profile.type_profile',
+          'users.name',
+          'users.uuid_user',
+          'condominium.condominium_name'
+        )
+        .count('received_package.uuid_package as total_received')
+        .select(
+          db.raw('SUM(received_package.status_package = "RECEIVED") as total_pending'),
+          db.raw('SUM(received_package.status_package = "DELIVERED") as total_delivered')
+        )
+        .groupBy(
+          'user_profile.apartment_block',
+          'user_profile.apartment',
+          'user_profile.phone_number',
+          'user_profile.type_profile',
+          'users.name',
+          'users.uuid_user',
+          'condominium.condominium_name'
+        );
+
+      console.log(userProfile);
 
       return userProfile;
     } catch (error) {
@@ -96,12 +114,13 @@ export class UserProfileRepository {
           "condominium.uuid_condominium"
         )
         .where("user_profile.deleted", 0)
+        .andWhere("user_profile.uuid_user_profile", data.received)
         .andWhere("user_profile.apartment_block", data.block)
         .andWhere("user_profile.apartment", data.apartment)
         .andWhereRaw('LOWER(users.name) LIKE ?', [nameLike]);
 
-      const row = await q.first();
-      return row;
+      const result = await q.first();
+      return result;
     } catch (error) {
       return error;
     }

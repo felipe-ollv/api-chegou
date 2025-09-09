@@ -7,18 +7,18 @@ export class UserAuthService {
     try {
       const userProfile = await UserProfileService.findUserProfileByPhoneService(value.phone_number);
       if (userProfile === undefined) {
-        return { message: 'Falha ao efetuar login, verifique as informações!', code: 'NOK' }
+        return { message: 'Falha ao efetuar login, verifique as informações!', code: 400 }
       } else {
         const senhaCorreta = await bcrypt.compare(value.password, userProfile.password);
         if (!senhaCorreta) {
-          return { message: 'Falha ao efetuar login, verifique as informações!', code: 'NOK' }
+          return { message: 'Falha ao efetuar login, verifique as informações!', code: 400 }
         }
 
         const token = generateAccessToken(userProfile);
         return token;
       }
     } catch (error) {
-      return error;
+      return { message: 'Erro interno', code: 500 }
     }
   }
 }

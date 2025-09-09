@@ -15,20 +15,20 @@ export const requireAuth = (options?: RequireAuthOptions): RequestHandler => {
       if (options?.optional) {
         return void next();
       }
-      res.status(401).json({ error: 'Missing' });
+      res.status(401).json({ error: '' });
       return;
     }
 
     const [scheme, token] = auth.split(' ');
 
     if (scheme !== 'Bearer' || !token) {
-      res.status(401).json({ error: 'Invalid' });
+      res.status(401).json({ error: '' });
       return;
     }
 
     const secret = process.env.ACCESS_TOKEN_SECRET;
     if (!secret) {
-      res.status(500).json({ error: 'JWT secret' });
+      res.status(500).json({ error: '' });
       return;
     }
 
@@ -37,7 +37,7 @@ export const requireAuth = (options?: RequireAuthOptions): RequestHandler => {
       (req as AuthRequest).user = decoded;
       next();
     } catch {
-      res.status(401).json({ error: 'Invalid or expired token' });
+      res.status(401).json({ error: '' });
     }
   };
 

@@ -9,7 +9,7 @@ export class UserProfileService {
       const resModel = await UserProfileRepository.findUserProfileByUuid(data);
       return resModel;
     } catch (error) {
-      return error;
+      return { message: 'Erro interno', code: 500 }
     }
   }
 
@@ -18,7 +18,7 @@ export class UserProfileService {
       const resModel = await UserProfileRepository.createUserProfile(data);
       return resModel;
     } catch (error) {
-      return error;
+      return { message: 'Erro interno', code: 500 }
     }
   }
 
@@ -32,9 +32,14 @@ export class UserProfileService {
         UserProfileRepository.updateUserProfile(data)
       ])
 
-      return resPromisseAll;
+      if (resPromisseAll.length > 1) {
+        return { message: 'Perfil atualizado', code: 200 }
+      } else {
+        return { message: 'Falha ao atualizar perfil', code: 400 }
+      }
+
     } catch (error) {
-      return error;
+      return { message: 'Erro interno', code: 500 }
     }
   }
 
@@ -50,6 +55,11 @@ export class UserProfileService {
   static async findUserProfileByComposedData(data: any): Promise<any> {
     try {
       const resModel = await UserProfileRepository.findUserProfileByComposedData(data);
+
+      if (resModel === undefined) {
+        // Procurar por outro morador do apartamento
+      }
+
       return resModel;
     } catch (error) {
       return error;

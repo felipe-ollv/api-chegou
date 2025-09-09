@@ -7,7 +7,7 @@ export class UserAuthResource {
     try {
       const value = req.body;
       const resp = await UserAuthService.userAuthService(value);
-      return res.json(resp);
+      return res.status(resp.code).json(resp.message);
     } catch (error) {
       return res.status(400).json({ message: 'Erro ao autenticar usuário' });
     }
