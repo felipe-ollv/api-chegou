@@ -1,4 +1,4 @@
-import { generateUUID } from '@/app/utils/uuid.generator';
+import { generateUUID } from '../../utils/uuid.generator';
 import { createHash } from '../../middleware/hash-password';
 import { UserProfileType } from '../../types/user-profile-type';
 import { UserAccess } from '../user-access/user.access.schema';
