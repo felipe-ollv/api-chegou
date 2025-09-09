@@ -20,9 +20,9 @@ export class UserResource {
       // const userData = userSchema.parse(req.body);
       const resp = await UserService.registerUserService(req.body);
 
-      return res.status(200).json(resp);
+      return res.status(resp.code).json(resp.message);
     } catch (error) {
-      return res.status(400).json({ message: 'Erro ao cadastrar usuário' });
+      return res.status(500).json({ message: 'Erro interno' });
     }
   }
 }

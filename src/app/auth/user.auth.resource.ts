@@ -9,7 +9,7 @@ export class UserAuthResource {
       const resp = await UserAuthService.userAuthService(value);
       return res.status(resp.code).json(resp.message);
     } catch (error) {
-      return res.status(400).json({ message: 'Erro ao autenticar usuário' });
+      return res.status(500).json({ message: 'Erro interno' });
     }
   }
 }

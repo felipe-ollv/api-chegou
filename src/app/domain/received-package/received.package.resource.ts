@@ -19,7 +19,7 @@ export class ReceivedPackageResource {
       // const packageData = receivedPackageSchema.partial().parse(req.body);
 
       const resp = await ReceivedPackageService.registerReceivedPackageService(req.body);
-      return res.json(resp);
+      return res.status(resp.code).json(resp.message);
     } catch (error) {
       return res.status(400).json({ message: 'Erro ao cadastrar pacote' });
     }
@@ -28,8 +28,8 @@ export class ReceivedPackageResource {
   static async updateReceivedPackage(req: Request, res: Response): Promise<any> {
     try {
       const packageData = receivedPackageSchema.partial().parse(req.body);
-      const resp = await ReceivedPackageService.registerReceivedPackageService(packageData);
-      return res.status(200).json(resp);
+      const resp = await ReceivedPackageService.updateReceivedPackageService(packageData);
+      return res.status(resp.code).json(resp.message);
     } catch (error) {
       return res.status(400).json({ message: 'Erro ao atualizar pacote' });
     }
