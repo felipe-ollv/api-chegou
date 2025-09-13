@@ -9,6 +9,7 @@ import publicRoutes from './routes/public-routes';
 import dotenv from 'dotenv';
 import { corsMiddleware } from './config/cors';
 import { requireAuth } from '../app/middleware/authRequest';
+import { logRequests } from './middleware/logger.service'
 dotenv.config();
 
 const createApp = (): Application => {
@@ -24,14 +25,7 @@ const createApp = (): Application => {
 
   const apiUrl = process.env.URL_API || '/';
 
-  if (process.env.NODE_ENV === 'development') {
-    morgan.token('body', (req) => {
-      const body = (req as Request).body;
-      return JSON.stringify(body);
-    });
-
-    app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
-  }
+  app.use(logRequests);
 
   app.get('/health', (req, res) => {
     res.status(200).json({ status: 'OK' });
