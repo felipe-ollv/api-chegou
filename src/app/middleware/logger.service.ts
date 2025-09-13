@@ -24,7 +24,7 @@ export const logRequests = (req: Request, res: Response, next: NextFunction) => 
       responseBody: parseBody(responseBody)
     };
 
-    logger.info(JSON.stringify(log, null, 2));
+    logger.info(JSON.stringify(log));
   });
 
   next();

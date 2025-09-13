@@ -15,7 +15,7 @@ export class UserAuthService {
         } else {
           const token = generateAccessToken(userProfile);
           const refreshtoken = generateRefreshToken(userProfile);
-          return { token, refreshtoken };
+          return { token, refreshtoken, code: 200 };
         }
       }
     } catch (error) {

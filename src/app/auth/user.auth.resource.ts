@@ -7,6 +7,9 @@ export class UserAuthResource {
     try {
       const value = req.body;
       const resp = await UserAuthService.userAuthService(value);
+      if (resp.code === 200) {
+        return res.status(resp.code).json(resp);
+      }
       return res.status(resp.code).json(resp.message);
     } catch (error) {
       return res.status(500).json({ message: 'Erro interno' });
