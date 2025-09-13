@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   mysql:
     image: mysql:8.0
-    container_name: db-dev-chegou
+    container_name: db-prod-chegou
     restart: always
     env_file:
       - .env
@@ -13,9 +11,39 @@ services:
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
-      - '${DB_PORT}:3306'
+      - "${DB_PORT}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    deploy:
+      resources:
+        reservations:
+          memory: 2G
+        limits:
+          memory: 6G
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-prod-chegou
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "3006:3006"
+    depends_on:
+      - mysql
+    deploy:
+      resources:
+        reservations:
+          memory: 512M
+        limits:
+          memory: 4G
 
 volumes:
   mysql_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /data/mysql-data
+      o: bind
