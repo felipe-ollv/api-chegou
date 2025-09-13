@@ -22,10 +22,9 @@ const createApp = (): Application => {
   app.use(compression());
 
   app.use(corsMiddleware);
+  app.use(logRequests);
 
   const apiUrl = process.env.URL_API || '/';
-
-  app.use(logRequests);
 
   app.get('/health', (req, res) => {
     res.status(200).json({ status: 'OK' });
