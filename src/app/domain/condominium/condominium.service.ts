@@ -33,7 +33,6 @@ export class CondominiumService {
   static async updateCondominiumService(data: Condominium): Promise<any> {
     try {
       const resModel = await CondominiumRepository.update(data);
-      console.log(resModel);
       return resModel;
     } catch (error) {
       return error;
@@ -45,7 +44,6 @@ export class CondominiumService {
       const exists = await CondominiumService.findCondominiumService(data);
       if (exists.deleted === 0) {
         const resModel = await CondominiumRepository.delete(data);
-        console.log(resModel);
         return resModel;
       } else {
         return { statusCode: 200, message: 'Condominio não existe!' };

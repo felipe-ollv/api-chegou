@@ -39,7 +39,6 @@ export class UserProfileRepository {
     `;
 
       const result = await db.raw(query, [uuid]);
-      console.log(result)
 
       return result[0];
     } catch (error) {
@@ -120,7 +119,6 @@ export class UserProfileRepository {
           "condominium.uuid_condominium"
         )
         .where("user_profile.deleted", 0)
-        .andWhere("user_profile.uuid_user_profile", data.received)
         .andWhere("user_profile.apartment_block", data.block)
         .andWhere("user_profile.apartment", data.apartment)
         .andWhereRaw('LOWER(users.name) LIKE ?', [nameLike]);

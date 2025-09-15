@@ -10,8 +10,6 @@ export class NoteDataRepository {
         .andWhere('deleted', 0)
         .select();
 
-      console.log('FIND BY', noteData);
-
       return noteData;
     } catch (error) {
       return error;

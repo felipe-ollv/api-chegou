@@ -36,7 +36,6 @@ export class CondominiumResource {
   static async update(req: Request, res: Response): Promise<any> {
     try {
       const condominiumData = condominiumSchema.parse(req.body);
-      console.log(condominiumData)
       const resp = await CondominiumService.updateCondominiumService(condominiumData);
       return res.status(200).json(resp);
     } catch (error: any) {

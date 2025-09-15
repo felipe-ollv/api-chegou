@@ -10,8 +10,6 @@ export class NotificationRepository {
         .andWhere('deleted', 0)
         .select();
 
-      console.log('FIND BY', notificationData);
-
       return notificationData;
     } catch (error) {
       return error;
@@ -25,8 +23,6 @@ export class NotificationRepository {
           ...notificationData
         })
 
-      console.log('CREATE', createdNotification);
-
       return createdNotification;
     } catch (error) {
       return error;
@@ -38,8 +34,6 @@ export class NotificationRepository {
       const updatednotificationData = await db(this.tableName)
         .where('uuid_notification', notificationData.uuid_notification)
         .update(notificationData)
-
-      console.log('UPDATE', updatednotificationData);
 
       return updatednotificationData;
     } catch (error) {

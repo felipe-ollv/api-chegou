@@ -39,8 +39,6 @@ export class ReceivedPackageRepository {
           ...packageData
         })
 
-      console.log("RES PACKAGE", createdPackage)
-
       return createdPackage;
     } catch (error) {
       return error;
