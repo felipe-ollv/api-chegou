@@ -23,6 +23,7 @@ export class ReceivedPackageRepository {
         .leftJoin('users as receiver_user', 'receiver_profile.uuid_user_fk', 'receiver_user.uuid_user')
         .leftJoin('condominium', 'owner_profile.uuid_condominium_fk', 'condominium.uuid_condominium')
         .where('received_package.uuid_user_profile_receiver', data)
+        .orWhere('received_package.uuid_user_profile_owner', data)
         .andWhere('received_package.deleted', 0)
         .andWhere('condominium.deleted', 0)
 
