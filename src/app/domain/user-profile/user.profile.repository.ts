@@ -11,6 +11,7 @@ export class UserProfileRepository {
         up.apartment,
         up.phone_number,
         up.type_profile,
+        up.profile_image,
         u.name,
         u.uuid_user,
         c.condominium_name,
@@ -83,7 +84,7 @@ export class UserProfileRepository {
   static async findUserProfileByPhone(data: any): Promise<any> {
     try {
       const phone_number = typeof data === "object" ? data.phone_number : data;
-      const userProfile = await db('user_profile')
+      const userProfile = await db(this.tableName)
         .select(
           'user_profile.*',
           'users.*',
@@ -125,6 +126,21 @@ export class UserProfileRepository {
 
       const result = await q.first();
       return result;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  static async imageUserProfile(uuid: string, filePath: string): Promise<any> {
+    try {
+      const userProfileImage = await db(this.tableName)
+        .where('uuid_user_profile', uuid)
+        .update({
+          profile_image: filePath,
+          updated_at: new Date()
+        });
+
+      return userProfileImage;
     } catch (error) {
       return error;
     }

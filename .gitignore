@@ -137,3 +137,5 @@ dist
 
 docker-compose.dev.yml
 Dockerfile.dev
+
+uploads/

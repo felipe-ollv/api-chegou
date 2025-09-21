@@ -1,12 +1,17 @@
 import { UserProfile } from "./user.profile.schema";
 import { UserProfileRepository } from "./user.profile.repository";
 import { UserService } from "../user/user.service";
+import path from "path";
 
 export class UserProfileService {
 
   static async findUserProfileService(data: any): Promise<any> {
     try {
       const resModel = await UserProfileRepository.findUserProfileByUuid(data);
+      if (resModel[0].profile_image !== null) {
+        resModel[0].profile_image = `http://localhost:3006/api/user-profile/${resModel[0].profile_image}`
+      }
+
       return resModel;
     } catch (error) {
       return { message: 'Erro interno', code: 500 }
@@ -61,6 +66,30 @@ export class UserProfileService {
       }
 
       return resModel;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  static async imageUserProfileService(uuid_user_profile: string, filePath: string): Promise<any> {
+    try {
+      let userProfile: Array<any> = [];
+      const resModel = await UserProfileRepository.imageUserProfile(uuid_user_profile, filePath);
+
+      if (resModel === 1) {
+        userProfile = await UserProfileService.findUserProfileService(uuid_user_profile);
+      }
+
+      return userProfile;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  static async fetchImageUserProfileService(data: string): Promise<any> {
+    try {
+      const filePath = path.join(__dirname, '../../../../uploads', data);
+      return filePath;
     } catch (error) {
       return error;
     }

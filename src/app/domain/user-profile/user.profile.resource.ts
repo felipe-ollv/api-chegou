@@ -36,4 +36,34 @@ export class UserProfileResource {
       return res.status(400).json({ message: 'Erro ao atualizar perfil do usuário, verifique as informações' });
     }
   }
+
+  static async imageUserProfile(req: Request & { file?: Express.Multer.File }, res: Response): Promise<any> {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ message: 'Nenhum arquivo enviado' });
+      }
+      const { uuidUserProfile } = req.body;
+      const filePath = req.file.path;
+      const resp = await UserProfileService.imageUserProfileService(uuidUserProfile, filePath);
+
+      if (resp.length > 0) {
+        return res.json({ message: 'Imagem do perfil atualizada', code: 200, value: resp[0].profile_image });
+      } else {
+        return res.json({ message: 'Falha ao atualizar imagem do perfil', code: 400 });
+      }
+    } catch (error) {
+      return res.status(500).json({ message: 'Erro interno!' });
+    }
+  }
+
+  static async fetchImageUserProfile(req: Request & { file?: Express.Multer.File }, res: Response): Promise<any> {
+    try {
+      const fileName = req.params.value;
+      const filePath = await UserProfileService.fetchImageUserProfileService(fileName);
+
+      return res.sendFile(filePath);
+    } catch (error) {
+      return res.status(500).json({ message: 'Erro interno!' });
+    }
+  }
 }
