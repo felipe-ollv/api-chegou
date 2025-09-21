@@ -25,4 +25,15 @@ export class UserAccessResource {
       return res.status(400).json({ message: 'Erro ao cadastrar acesso do usuario, verifique as informações' });
     }
   }
+
+  static async updateUserAccess(req: Request, res: Response): Promise<any> {
+    try {
+      const userAccessData = req.body;
+      const resp = await UserAccessService.updateUserAccessService(userAccessData);
+
+      return res.status(resp.code).json(resp.message);
+    } catch (error) {
+      return res.status(500).json({ message: 'Erro ao atualizar senha' });
+    }
+  }
 }

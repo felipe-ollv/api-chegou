@@ -27,4 +27,18 @@ export class UserAccessRepository {
       return error;
     }
   }
+
+  static async updateUserAccess(data: any): Promise<any> {
+    try {
+      const user = await db(this.tableName)
+        .where('uuid_user_profile_fk', data.uuid_profile)
+        .update({
+          password: data.password
+        });
+
+      return user;
+    } catch (error) {
+      return error;
+    }
+  }
 }
