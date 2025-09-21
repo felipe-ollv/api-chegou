@@ -1,6 +1,6 @@
 import { generateUUID } from '../../utils/uuid.generator';
 import { createHash } from '../../middleware/hash-password';
-import { UserProfileType } from '../../types/user-profile-type';
+import { UserProfileType } from '../../../types/user-profile-type';
 import { UserAccess } from '../user-access/user.access.schema';
 import { UserProfile } from '../user-profile/user.profile.schema';
 import { User } from './user.schema';
