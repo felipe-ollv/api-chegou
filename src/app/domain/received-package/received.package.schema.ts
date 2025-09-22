@@ -7,6 +7,7 @@ export const receivedPackageSchema = z.object({
   uuid_user_profile_owner: z.string().uuid().nonempty(),
   status_package: z.string().nonempty(),
   note: z.string(),
+  confirmation_code: z.string().nonempty(),
   created_at: z.date(),
   updated_at: z.date().optional(),
   deleted: z.number().optional(),

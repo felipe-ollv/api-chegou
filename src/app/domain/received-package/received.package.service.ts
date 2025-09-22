@@ -1,6 +1,7 @@
 import { ReceivedPackage } from "./received.package.schema";
 import { ReceivedPackageRepository } from "./received.package.repository";
 import { generateUUID } from '../../utils/uuid.generator';
+import { codeGenerator } from "../../utils/code.generator";
 import { UserProfileService } from "../user-profile/user.profile.service";
 import { NotificationService } from '../notification/notification.service';
 import { ReceivedPackageChain } from './received.package.chain';
@@ -31,6 +32,7 @@ export class ReceivedPackageService {
         "uuid_user_profile_owner": userData.uuid_user_profile,
         "status_package": data.received === userData.uuid_user_profile ? "DELIVERED" : "RECEIVED",
         "note": data.note,
+        "confirmation_code": codeGenerator().toString(),
         "deleted": 0
       }
 
