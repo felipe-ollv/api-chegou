@@ -64,10 +64,10 @@ export class ReceivedPackageService {
   static async updateReceivedPackageService(data: Partial<ReceivedPackage>): Promise<any> {
     try {
       const resModel = await ReceivedPackageRepository.updatePackage(data);
-      if (resModel.data) {
-        return { message: 'Recebimento atualizado', code: 200 }
+      if (resModel === 1) {
+        return { message: 'Recebimento confirmado', code: 200 }
       } else {
-        return { message: 'Falha ao atualizar', code: 400 }
+        return { message: 'Falha ao confirmar recebimento, verifique o código', code: 400 }
       }
     } catch (error) {
       return { message: 'Erro interno', code: 500 }

@@ -27,11 +27,11 @@ export class ReceivedPackageResource {
 
   static async updateReceivedPackage(req: Request, res: Response): Promise<any> {
     try {
-      const packageData = receivedPackageSchema.partial().parse(req.body);
-      const resp = await ReceivedPackageService.updateReceivedPackageService(packageData);
-      return res.status(resp.code).json(resp.message);
+      // const packageData = receivedPackageSchema.partial().parse(req.body);
+      const resp = await ReceivedPackageService.updateReceivedPackageService(req.body);
+      return res.json(resp);
     } catch (error) {
-      return res.status(400).json({ message: 'Erro ao atualizar pacote' });
+      return res.status(400).json({ message: 'Erro ao confirmar' });
     }
   }
 }

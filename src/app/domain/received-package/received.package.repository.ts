@@ -26,6 +26,7 @@ export class ReceivedPackageRepository {
         .orWhere('received_package.uuid_user_profile_owner', data)
         .andWhere('received_package.deleted', 0)
         .andWhere('condominium.deleted', 0)
+        .orderBy('received_package.created_at', 'desc')
 
       return resPackage;
     } catch (error) {
@@ -48,11 +49,23 @@ export class ReceivedPackageRepository {
 
   static async updatePackage(packageData: any): Promise<any> {
     try {
-      const updatedPackageData = await db(this.tableName)
+      const resModel = await db(this.tableName)
         .where('uuid_package', packageData.uuid_package)
-        .update(packageData)
+        .select('received_package.confirmation_code');
 
-      return updatedPackageData;
+      if (resModel[0].confirmation_code === packageData.confirmation_code) {
+        const updatedPackageData = await db(this.tableName)
+          .where('uuid_package', packageData.uuid_package)
+          .update({
+            'status_package': 'DELIVERED',
+            'updated_at': new Date()
+          })
+
+        return updatedPackageData;
+      } else {
+        return 0;
+      }
+
     } catch (error) {
       return error;
     }
