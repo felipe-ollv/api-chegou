@@ -43,13 +43,9 @@ export class UserProfileRepository {
 
       return result[0];
     } catch (error) {
-      console.error('Erro ao buscar perfil:', error);
-      throw error;
+      return error;
     }
   }
-
-
-
 
   static async createUserProfile(data: any): Promise<any> {
     try {

@@ -9,7 +9,7 @@ export class UserProfileService {
     try {
       const resModel = await UserProfileRepository.findUserProfileByUuid(data);
       if (resModel[0].profile_image !== null) {
-        resModel[0].profile_image = `${process.env.BASE_URL_ENVIRONMENT}${resModel[0].profile_image}`
+        resModel[0].profile_image = `${process.env.BASE_URL_ENVIRONMENT}/user-profile/${resModel[0].profile_image}`
       }
 
       return resModel;
