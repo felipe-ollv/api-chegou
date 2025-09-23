@@ -9,7 +9,7 @@ export class UserProfileService {
     try {
       const resModel = await UserProfileRepository.findUserProfileByUuid(data);
       if (resModel[0].profile_image !== null) {
-        resModel[0].profile_image = `http://localhost:3006/api/user-profile/${resModel[0].profile_image}`
+        resModel[0].profile_image = `${process.env.BASE_URL_ENVIRONMENT}${resModel[0].profile_image}`
       }
 
       return resModel;
@@ -88,7 +88,7 @@ export class UserProfileService {
 
   static async fetchImageUserProfileService(data: string): Promise<any> {
     try {
-      const filePath = path.join(__dirname, '../../../../uploads', data);
+      const filePath = path.join(__dirname, `${process.env.DIR_UPLOADS}`, data);
       return filePath;
     } catch (error) {
       return error;
