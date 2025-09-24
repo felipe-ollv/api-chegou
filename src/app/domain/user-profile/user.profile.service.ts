@@ -86,18 +86,15 @@ export class UserProfileService {
     }
   }
 
-  // static async fetchImageUserProfileService(data: string): Promise<any> {
-  //   try {
-  //     const filePath = path.join('__dirname', `${process.env.DIR_UPLOADS}`, data);
-  //     return filePath;
-  //   } catch (error) {
-  //     return error;
-  //   }
-  // }
-
   static async fetchImageUserProfileService(data: string): Promise<any> {
     try {
-      const baseDir = process.env.DIR_UPLOADS || path.join(path.resolve(), "uploads");
+      let baseDir: string;
+
+      if (process.env.DIR_UPLOADS) {
+        baseDir = process.env.DIR_UPLOADS;
+      } else {
+        baseDir = path.join(path.resolve(), "uploads");
+      }
 
       const filePath = path.join(baseDir, data);
       return filePath;
