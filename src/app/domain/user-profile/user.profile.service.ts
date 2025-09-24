@@ -86,9 +86,22 @@ export class UserProfileService {
     }
   }
 
+  // static async fetchImageUserProfileService(data: string): Promise<any> {
+  //   try {
+  //     const filePath = path.join('__dirname', `${process.env.DIR_UPLOADS}`, data);
+  //     return filePath;
+  //   } catch (error) {
+  //     return error;
+  //   }
+  // }
+
   static async fetchImageUserProfileService(data: string): Promise<any> {
     try {
-      const filePath = path.join(__dirname, `${process.env.DIR_UPLOADS}`, data);
+      const filePath = path.join(
+        path.resolve(),
+        process.env.DIR_UPLOADS || "uploads",
+        data
+      );
       return filePath;
     } catch (error) {
       return error;
