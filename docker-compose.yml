@@ -31,6 +31,8 @@ services:
       - .env
     ports:
       - "3006:3006"
+    volumes:
+      - uploads_data:/usr/src/app/uploads
     depends_on:
       - mysql
     deploy:
@@ -46,4 +48,11 @@ volumes:
     driver_opts:
       type: none
       device: /data/mysql-data
+      o: bind
+
+  uploads_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /data/uploads
       o: bind
