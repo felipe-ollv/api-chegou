@@ -67,7 +67,7 @@ export class ReceivedPackageService {
       if (resModel === 1) {
         return { message: 'Recebimento confirmado', code: 200 }
       } else {
-        return { message: 'Falha ao confirmar recebimento, verifique o código', code: 400 }
+        return { message: 'Verifique o código', code: 400 }
       }
     } catch (error) {
       return { message: 'Erro interno', code: 500 }
