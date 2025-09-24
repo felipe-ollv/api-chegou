@@ -97,11 +97,9 @@ export class UserProfileService {
 
   static async fetchImageUserProfileService(data: string): Promise<any> {
     try {
-      const filePath = path.join(
-        path.resolve(),
-        process.env.DIR_UPLOADS || "uploads",
-        data
-      );
+      const baseDir = process.env.DIR_UPLOADS || path.join(path.resolve(), "uploads");
+
+      const filePath = path.join(baseDir, data);
       return filePath;
     } catch (error) {
       return error;
