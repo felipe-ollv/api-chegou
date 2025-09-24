@@ -1,10 +1,13 @@
-import type { Multer } from "multer";
-
-declare global {
+declare namespace Express {
   namespace Multer {
-    export interface Request {
-      file?: Multer.File;
-      files?: Multer.File[];
+    interface File {
+      key: string;
+      location: string;
     }
+  }
+
+  export interface Request {
+    file?: Multer.File;
+    files?: Multer.File[];
   }
 }
