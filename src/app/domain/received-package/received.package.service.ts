@@ -5,6 +5,7 @@ import { codeGenerator } from "../../utils/code.generator";
 import { UserProfileService } from "../user-profile/user.profile.service";
 import { NotificationService } from '../notification/notification.service';
 import { ReceivedPackageChain } from './received.package.chain';
+import { PushNotificationService } from '../../service/push-notification.service';
 
 export class ReceivedPackageService {
   static async findReceivedPackageService(uuidUserProfile: string): Promise<any> {
@@ -48,9 +49,10 @@ export class ReceivedPackageService {
 
         const resNotification = await NotificationService.createNotificationService(notificationData);
 
-        if (resNotification.length > 0) return { message: 'Recebimento registrado', code: 200 }
-
-        // CHAMAR FILA PARA ENVIO DE NOTIFICACAO
+        if (resNotification.length > 0) {
+          PushNotificationService.sendPushNotification(userData.notification_token, userData.uuid_user_profile, 'Chegou algo para você!')
+          return { message: 'Recebimento registrado', code: 200 }
+        }
 
       } else {
         return { message: 'Falha ao registrar recebimento', code: 400 }
