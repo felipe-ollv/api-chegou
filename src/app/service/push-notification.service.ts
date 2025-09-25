@@ -18,7 +18,7 @@ export class PushNotificationService {
   static async sendPushNotification(token: string, uuidUserProfile: string, message: string) {
 
     if (!token || !Expo.isExpoPushToken(token)) {
-      logger.error("Token inválido para o usuário:", uuidUserProfile);
+      logger.error(`Token inválido para o usuário: ${uuidUserProfile}`);
       return;
     }
 
@@ -31,12 +31,15 @@ export class PushNotificationService {
       },
     ];
 
+    logger.info('message', messages)
+
     const chunks = expo.chunkPushNotifications(messages);
     const tickets: any[] = [];
 
     for (let chunk of chunks) {
       try {
         const ticketChunk = await expo.sendPushNotificationsAsync(chunk);
+        console.log('ticketChunk', ticketChunk)
         tickets.push(...ticketChunk);
       } catch (error) {
         logger.error(error);
