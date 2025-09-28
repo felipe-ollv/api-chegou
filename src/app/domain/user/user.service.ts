@@ -24,7 +24,7 @@ export class UserService {
         UserAccessRepository.createUserAccess(user_access)
       ])
 
-      if (resPromiseAll.length === 3) {
+      if (resPromiseAll.length === 3 && resPromiseAll.every(arr => arr.length === 1)) {
         return { message: "Cadastrado com sucesso!", code: 200 };
       } else {
         return { message: "Falha ao cadastrar, tente nomvamente mais tarde", code: 400 };
@@ -41,6 +41,15 @@ export class UserService {
       return { message: "Usuário atualizado", code: 200 }
     } catch (error) {
       return { message: "Erro ao atualizar!", code: 500 };
+    }
+  }
+
+  static async excludeUserServiceByProfile(data: any) {
+    try {
+      await UserRepository.deleteUserByProfile(data);
+      return { message: "Usuário excluído", code: 200 }
+    } catch (error) {
+      return { message: "Erro ao excluir!", code: 500 };
     }
   }
 }

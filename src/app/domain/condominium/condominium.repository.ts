@@ -10,8 +10,6 @@ export class CondominiumRepository {
         .andWhere('deleted', 0)
         .select();
 
-      console.log('FIND BY', condominium);
-
       return condominium;
     } catch (error) {
       return error;
@@ -23,8 +21,6 @@ export class CondominiumRepository {
       const listCondominium = await db(this.tableName)
         .where('deleted', 0)
         .select('*');
-
-      console.log('FIND', listCondominium);
 
       return listCondominium;
     } catch (error) {

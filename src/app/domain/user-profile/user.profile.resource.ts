@@ -66,4 +66,15 @@ export class UserProfileResource {
       return res.status(500).json({ message: 'Erro interno!' });
     }
   }
+
+  static async excludeUserProfile(req: Request, res: Response): Promise<any> {
+    try {
+      const userProfileData = req.body;
+      console.log(userProfileData)
+      const resp = await UserProfileService.excludeUserProfileService(userProfileData.up);
+      return res.json(resp);
+    } catch (error) {
+      return res.status(400).json({ message: 'Erro ao excluir perfil do usuário' });
+    }
+  }
 }

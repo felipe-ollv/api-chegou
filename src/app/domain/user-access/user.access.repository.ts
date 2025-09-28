@@ -41,4 +41,19 @@ export class UserAccessRepository {
       return error;
     }
   }
+
+  static async deleteUserAccess(data: any): Promise<any> {
+    try {
+      const user = await db(this.tableName)
+        .where('uuid_user_profile_fk', data)
+        .update({
+          status: 'DELETED',
+          deleted: 1
+        });
+
+      return user;
+    } catch (error) {
+      return error;
+    }
+  }
 }

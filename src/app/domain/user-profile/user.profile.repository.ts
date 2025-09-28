@@ -92,6 +92,9 @@ export class UserProfileRepository {
         .leftJoin('condominium', 'user_profile.uuid_condominium_fk', 'condominium.uuid_condominium')
         .where('user_profile.phone_number', phone_number)
         .andWhere('user_profile.deleted', 0)
+        .andWhere('user_access.deleted', 0)
+        .andWhere('users.deleted', 0)
+        .andWhere('user_access.status', 'ACTIVE')
         .first();
 
       return userProfile;
@@ -137,6 +140,21 @@ export class UserProfileRepository {
         });
 
       return userProfileImage;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  static async excludeUserProfile(data: any): Promise<any> {
+    try {
+      const updated = await db(this.tableName)
+        .where('uuid_user_profile', data)
+        .update({
+          deleted: 1,
+          updated_at: new Date()
+        });
+
+      return updated;
     } catch (error) {
       return error;
     }

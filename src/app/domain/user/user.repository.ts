@@ -41,4 +41,18 @@ export class UserRepository {
       return error;
     }
   }
+
+  static async deleteUserByProfile(userData: any): Promise<any> {
+    try {
+      const user = await db(this.tableName)
+        .where('uuid_user', userData)
+        .update({
+          deleted: 1
+        })
+
+      return user;
+    } catch (error) {
+      return error;
+    }
+  }
 }

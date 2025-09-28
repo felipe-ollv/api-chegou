@@ -14,8 +14,8 @@ export class UserChain {
   static handleProfileType(data: string) {
     const mapping: Record<string, UserProfileType> = {
       'ADM': UserProfileType.ADMIN,
-      'MORADOR': UserProfileType.RESIDENT,
-      'FUNCIONARIO': UserProfileType.EMPLOYEE,
+      'MORADOR(A)': UserProfileType.RESIDENT,
+      'FUNCIONARIO(A)': UserProfileType.EMPLOYEE,
       'SINDICO': UserProfileType.TRUSTEE,
     };
 

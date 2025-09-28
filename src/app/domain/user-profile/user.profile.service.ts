@@ -1,7 +1,9 @@
 import { UserProfile } from "./user.profile.schema";
 import { UserProfileRepository } from "./user.profile.repository";
 import { UserService } from "../user/user.service";
+import { UserAccessService } from "../user-access/user.access.service";
 import path from "path";
+
 
 export class UserProfileService {
 
@@ -100,6 +102,27 @@ export class UserProfileService {
       return filePath;
     } catch (error) {
       return error;
+    }
+  }
+
+  static async excludeUserProfileService(data: any): Promise<any> {
+    try {
+      const userProfile = await UserProfileRepository.findUserProfileByUuid(data);
+
+      const resPromisseAll = await Promise.all([
+        UserService.excludeUserServiceByProfile(userProfile[0].uuid_user),
+        UserAccessService.excludeUserAccessService(data),
+        UserProfileRepository.excludeUserProfile(data)
+      ])
+
+      if (resPromisseAll.length > 1) {
+        return { message: 'Perfil Excluído', code: 200 }
+      } else {
+        return { message: 'Falha ao excluir perfil', code: 400 }
+      }
+
+    } catch (error) {
+      return { message: 'Erro interno', code: 500 }
     }
   }
 }

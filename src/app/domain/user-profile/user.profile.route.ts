@@ -15,5 +15,6 @@ router.post(
   UserProfileResource.imageUserProfile
 );
 router.get('/uploads/:value', UserProfileResource.fetchImageUserProfile);
+router.post('/exclude-account', UserProfileResource.excludeUserProfile);
 
 export default router;

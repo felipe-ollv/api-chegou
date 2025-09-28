@@ -36,4 +36,17 @@ export class UserAccessService {
       return { message: 'Erro interno!', code: 500 }
     }
   }
+
+  static async excludeUserAccessService(data: any): Promise<any> {
+    try {
+      const resModel = await UserAccessRepository.deleteUserAccess(data);
+      if (resModel === 1) {
+        return { message: '', code: 200 }
+      } else {
+        return { message: '', code: 400 }
+      }
+    } catch (error) {
+
+    }
+  }
 }
