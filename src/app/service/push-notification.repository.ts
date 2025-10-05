@@ -9,7 +9,7 @@ export class PushNotificationRepository {
       const updatedUserToken = await db(this.tableName)
         .where('uuid_user_profile', data.uuidUserProfile)
         .update({
-          'notification_token': data.token
+          'notification_token': data.token.expoPushToken
         })
 
       return updatedUserToken;
