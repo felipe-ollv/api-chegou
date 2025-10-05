@@ -7,7 +7,7 @@ export class PushNotificationResource {
   static async registerToken(req: Request, res: Response): Promise<any> {
     try {
       const data = req.body;
-      if (data.expoPushToken) {
+      if (data) {
         const resp = await PushNotificationService.registerTokenService(data);
         logger.info('Push token result ->', resp);
       }
