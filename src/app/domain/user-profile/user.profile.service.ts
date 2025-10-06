@@ -67,10 +67,12 @@ export class UserProfileService {
         const anotherUser = await UserProfileRepository.anotherUser(data);
         if (anotherUser.length > 0) {
           return anotherUser;
+        } else {
+          return anotherUser;
         }
+      } else {
+        return resModel;
       }
-
-      return resModel;
     } catch (error) {
       return error;
     }
