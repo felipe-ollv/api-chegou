@@ -38,7 +38,7 @@ export class PushNotificationService {
     for (let chunk of chunks) {
       try {
         const ticketChunk = await expo.sendPushNotificationsAsync(chunk);
-        logger.info('ticketChunk', ticketChunk)
+        logger.info('ticketChunk', JSON.stringify(ticketChunk, null, 2));
         tickets.push(...ticketChunk);
       } catch (error) {
         logger.error(error);
