@@ -50,6 +50,7 @@ export class ReceivedPackageService {
         const resNotification = await NotificationService.createNotificationService(notificationData);
 
         if (resNotification.length > 0) {
+          console.log('expo token', userData.notification_token)
           PushNotificationService.sendPushNotification(userData.notification_token, userData.uuid_user_profile, 'Chegou algo para você!')
           return { message: 'Recebimento registrado', code: 200 }
         }

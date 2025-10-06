@@ -26,8 +26,9 @@ export class PushNotificationService {
       {
         to: token,
         sound: "default",
-        body: message,
-        data: { withSome: "data" },
+        title: "ChegouApp!",
+        body: message ?? "Você tem uma nova notificação.",
+        data: { origin: "push-service", date: new Date().toISOString() },
       },
     ];
 
