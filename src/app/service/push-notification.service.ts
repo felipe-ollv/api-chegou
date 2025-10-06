@@ -44,6 +44,8 @@ export class PushNotificationService {
       }
     }
 
+    this.checkReceipts(tickets);
+
     return tickets;
   }
 
