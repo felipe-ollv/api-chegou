@@ -148,6 +148,7 @@ export class UserProfileRepository {
   static async excludeUserProfile(data: any): Promise<any> {
     try {
       const updated = await db(this.tableName)
+        .select()
         .where('uuid_user_profile', data)
         .update({
           deleted: 1,
@@ -155,6 +156,31 @@ export class UserProfileRepository {
         });
 
       return updated;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  static async anotherUser(data: any): Promise<any> {
+    try {
+      const another = db(this.tableName)
+        .select(
+          "user_profile.*",
+          "users.*",
+          "condominium.*"
+        )
+        .leftJoin("users", "user_profile.uuid_user_fk", "users.uuid_user")
+        .leftJoin(
+          "condominium",
+          "user_profile.uuid_condominium_fk",
+          "condominium.uuid_condominium"
+        )
+        .where("user_profile.deleted", 0)
+        .andWhere("user_profile.apartment_block", data.block)
+        .andWhere("user_profile.apartment", data.apartment)
+
+      const result = await another.first();
+      return result;
     } catch (error) {
       return error;
     }

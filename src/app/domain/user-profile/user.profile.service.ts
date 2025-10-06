@@ -64,7 +64,10 @@ export class UserProfileService {
       const resModel = await UserProfileRepository.findUserProfileByComposedData(data);
 
       if (resModel === undefined) {
-        // Procurar por outro morador do apartamento
+        const anotherUser = await UserProfileRepository.anotherUser(data);
+        if (anotherUser.length > 0) {
+          return anotherUser;
+        }
       }
 
       return resModel;
