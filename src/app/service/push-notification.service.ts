@@ -55,6 +55,8 @@ export class PushNotificationService {
       }
     }
 
+    logger.info("Aguardando 4 segundos antes de verificar recibos...");
+    await new Promise((resolve) => setTimeout(resolve, 4000));
     await this.checkReceipts(tickets);
 
     return tickets;
