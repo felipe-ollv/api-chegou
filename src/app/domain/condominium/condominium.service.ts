@@ -6,6 +6,9 @@ export class CondominiumService {
   static async findCondominiumService(data: any): Promise<any> {
     try {
       const resModel = await CondominiumRepository.findbyUUid(data);
+      if (resModel.length === 0) {
+        return { message: '', code: 204 }
+      }
       return resModel;
     } catch (error) {
       return error;

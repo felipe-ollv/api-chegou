@@ -48,7 +48,7 @@ export class PushNotificationService {
     for (const chunk of chunks) {
       try {
         const ticketChunk = await expo.sendPushNotificationsAsync(chunk);
-        logger.info("Ticket recebido:", JSON.stringify(ticketChunk, null, 2));
+        logger.info("Ticket recebido:", JSON.stringify(ticketChunk));
         tickets.push(...ticketChunk);
       } catch (error) {
         logger.error("Erro ao enviar chunk de notificação:", error);
@@ -56,7 +56,7 @@ export class PushNotificationService {
     }
 
     logger.info("Aguardando 4 segundos antes de verificar recibos...");
-    await new Promise((resolve) => setTimeout(resolve, 4000));
+    await new Promise((resolve) => setTimeout(resolve, 15000));
     await this.checkReceipts(tickets);
 
     return tickets;
@@ -68,7 +68,7 @@ export class PushNotificationService {
       return;
     }
 
-    logger.info("Verificando recibos para tickets:", JSON.stringify(tickets, null, 2));
+    logger.info("Verificando recibos para tickets:", JSON.stringify(tickets));
 
     const receiptIds = tickets
       .filter((ticket) => ticket.status === "ok" && ticket.id)
