@@ -21,10 +21,7 @@ export class PushNotificationService {
       return;
     }
 
-    const safeMessage =
-      typeof message === "string" && message.trim().length > 0
-        ? message.trim()
-        : "Você tem uma nova notificação.";
+    const safeMessage = message?.trim() || "Você tem uma nova notificação.";
 
     const messages = [
       {
@@ -32,34 +29,22 @@ export class PushNotificationService {
         sound: "default",
         title: "ChegouApp!",
         body: safeMessage,
-        data: {
-          origin: "push-service",
-          date: new Date().toISOString(),
-        },
-        channelId: "default", // importante para Android
+        data: { origin: "push-service", date: new Date().toISOString() },
+        channelId: "default",
       },
     ];
 
-    logger.info("Enviando push notification:", JSON.stringify(messages, null, 2));
+    logger.info("Enviando push notification:", JSON.stringify(messages));
 
-    const chunks = expo.chunkPushNotifications(messages);
-    const tickets: any[] = [];
-
-    for (const chunk of chunks) {
-      try {
-        const ticketChunk = await expo.sendPushNotificationsAsync(chunk);
-        logger.info("Ticket recebido:", JSON.stringify(ticketChunk));
-        tickets.push(...ticketChunk);
-      } catch (error) {
-        logger.error("Erro ao enviar chunk de notificação:", error);
-      }
+    try {
+      const ticketChunk = await expo.sendPushNotificationsAsync(messages);
+      logger.info("Ticket recebido:", JSON.stringify(ticketChunk));
+      await this.checkReceipts(ticketChunk);
+      return ticketChunk;
+    } catch (error) {
+      logger.error("Erro ao enviar notificação:", error);
+      return null;
     }
-
-    logger.info("Aguardando 4 segundos antes de verificar recibos...");
-    await new Promise((resolve) => setTimeout(resolve, 15000));
-    await this.checkReceipts(tickets);
-
-    return tickets;
   }
 
   static async checkReceipts(tickets: any[]) {
