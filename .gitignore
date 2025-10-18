@@ -139,3 +139,5 @@ docker-compose.dev.yml
 Dockerfile.dev
 
 uploads/
+
+sendPushTest.js

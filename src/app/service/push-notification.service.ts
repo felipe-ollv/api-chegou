@@ -1,6 +1,7 @@
 import { Expo } from "expo-server-sdk";
 import { PushNotificationRepository } from "./push-notification.repository";
 import logger from "../utils/logger";
+import fetch from "node-fetch";
 
 const expo = new Expo();
 export class PushNotificationService {
@@ -15,32 +16,38 @@ export class PushNotificationService {
     }
   }
 
-  static async sendPushNotification(token: string, uuidUserProfile: string, message: string) {
+  static async sendPushNotification(token: string, uuidUserProfile: string, text: string) {
     if (!token || !Expo.isExpoPushToken(token)) {
       logger.error(`Token inválido para o usuário: ${uuidUserProfile} (${token})`);
       return;
     }
 
-    const safeMessage = message?.trim() || "Você tem uma nova notificação.";
+    const safeMessage = text?.trim() || "Você tem uma nova notificação.";
 
-    const messages = [
-      {
-        to: token,
-        sound: "default",
-        title: "ChegouApp!",
-        body: safeMessage,
-        data: { origin: "push-service", date: new Date().toISOString() },
-        channelId: "default",
-      },
-    ];
+    const message = {
+      to: token,
+      sound: "default",
+      title: "ChegouApp!",
+      body: safeMessage,
+      data: { origin: "push-service", date: new Date().toISOString() },
+      channelId: "default",
+    };
 
-    logger.info("Enviando push notification:", JSON.stringify(messages));
+    logger.info("Enviando push notification:", JSON.stringify(message));
 
     try {
-      const ticketChunk = await expo.sendPushNotificationsAsync(messages);
-      logger.info("Ticket recebido:", JSON.stringify(ticketChunk));
-      await this.checkReceipts(ticketChunk);
-      return ticketChunk;
+      const response = await fetch("https://exp.host/--/api/v2/push/send", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Accept-encoding": "gzip, deflate",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(message),
+      });
+
+      const data = await response.json();
+      logger.info("Resposta do Expo Push:", data);
     } catch (error) {
       logger.error("Erro ao enviar notificação:", error);
       return null;
