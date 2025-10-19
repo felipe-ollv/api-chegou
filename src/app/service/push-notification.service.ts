@@ -33,7 +33,7 @@ export class PushNotificationService {
       channelId: "default",
     };
 
-    logger.info("Enviando push notification:", JSON.stringify(message));
+    logger.info("Enviando push notification: ------", message);
 
     try {
       const response = await fetch("https://exp.host/--/api/v2/push/send", {
@@ -43,7 +43,7 @@ export class PushNotificationService {
           "Accept-encoding": "gzip, deflate",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(message),
+        body: JSON.stringify([message]),
       });
 
       const data = await response.json();
