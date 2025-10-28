@@ -139,5 +139,6 @@ docker-compose.dev.yml
 Dockerfile.dev
 
 uploads/
+pdfs/
 
 sendPushTest.js

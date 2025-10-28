@@ -185,4 +185,21 @@ export class UserProfileRepository {
       return error;
     }
   }
+
+  static async findUsersByUuidCondominium(data: string): Promise<any> {
+    try {
+      const usersCondominium = await db(this.tableName)
+        .where("uuid_condominium_fk", data)
+        .select(
+          "user_profile.noficifation_token as token",
+          "user_profile.uuid_user_profile as uuidUserProfile"
+        )
+
+      console.log('users repo', usersCondominium)
+
+      return usersCondominium;
+    } catch (error) {
+      return error
+    }
+  }
 }

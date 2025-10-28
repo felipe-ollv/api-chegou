@@ -1,4 +1,4 @@
-import { Expo } from "expo-server-sdk";
+import { Expo, ExpoPushMessage } from "expo-server-sdk";
 import { PushNotificationRepository } from "./push-notification.repository";
 import logger from "../utils/logger";
 import fetch from "node-fetch";
@@ -52,6 +52,64 @@ export class PushNotificationService {
     } catch (error) {
       logger.error("Erro ao enviar notificação:", error);
       return null;
+    }
+  }
+
+  static async sendPushNotificationsBatch(
+    users: { token: string; uuidUserProfile: string }[],
+    text: string
+  ) {
+    if (!users?.length) {
+      logger.warn("Nenhum usuário informado para envio de push.");
+      return;
+    }
+
+    const safeMessage = text?.trim() || "Você tem um novo aviso!";
+
+    const messages: ExpoPushMessage[] = users
+      .filter(({ token, uuidUserProfile }) => {
+        if (!token || !Expo.isExpoPushToken(token)) {
+          logger.error(`Token inválido: ${uuidUserProfile} (${token})`);
+          return false;
+        }
+        return true;
+      })
+      .map(({ token }) => ({
+        to: token,
+        sound: "default",
+        title: "ChegouApp!",
+        body: safeMessage,
+        data: { origin: "push-service", date: new Date().toISOString() },
+        channelId: "default",
+        priority: "high" as const,
+      }));
+
+    if (!messages.length) {
+      logger.warn("Nenhuma mensagem válida para envio.");
+      return;
+    }
+
+    logger.info(`Enviando ${messages.length} notificações para o Expo...`);
+
+    try {
+      const chunks = expo.chunkPushNotifications(messages);
+
+      for (const chunk of chunks) {
+        const response = await fetch("https://exp.host/--/api/v2/push/send", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Accept-encoding": "gzip, deflate",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(chunk),
+        });
+
+        const data = await response.json();
+        logger.info("Resposta do Expo Push (chunk):", data);
+      }
+    } catch (error) {
+      logger.error("Erro ao enviar notificações em lote:", error);
     }
   }
 

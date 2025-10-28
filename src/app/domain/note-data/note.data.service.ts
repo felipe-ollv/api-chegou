@@ -1,5 +1,7 @@
 import { generateUUID } from "../../utils/uuid.generator";
 import { NoteDataRepository } from "./note.data.repository";
+import { UserProfileService } from "../user-profile/user.profile.service";
+import { PushNotificationService } from "../../service/push-notification.service";
 
 export class NoteDataService {
   static async findNoteDataService(data: any): Promise<any> {
@@ -21,8 +23,10 @@ export class NoteDataService {
       const resModel = await NoteDataRepository.saveNoteDocument(dataPersist);
 
       if (resModel.lenght > 0) {
-        // chamar serviço para buscar moradores do condominio
-        // chamar serviço de push notification
+        const users = await UserProfileService.findUsersByCondominium(dataPersist.uuidCondominiumFk);
+        console.log('tokens users', users);
+
+        PushNotificationService.sendPushNotificationsBatch(users, 'Aviso do síndico(a)')
       }
 
       return resModel;

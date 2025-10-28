@@ -3,7 +3,7 @@ import path from "path";
 
 const storagePdf = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/pdfs/");
+    cb(null, "pdfs/");
   },
   filename: function (req, file, cb) {
     cb(null, `document-${Date.now()}${path.extname(file.originalname)}`);

@@ -130,4 +130,14 @@ export class UserProfileService {
       return { message: 'Erro interno', code: 500 }
     }
   }
+
+  static async findUsersByCondominium(data: string): Promise<any> {
+    try {
+      const users = await UserProfileRepository.findUsersByUuidCondominium(data);
+
+      return users;
+    } catch (error) {
+      return { message: 'Erro interno', code: 500 }
+    }
+  }
 }
