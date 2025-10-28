@@ -1,5 +1,5 @@
 import { UserProfileService } from "../domain/user-profile/user.profile.service";
-import { generateAccessToken, generateRefreshToken } from './jwt';
+import { generateAccessToken } from './jwt';
 import bcrypt from 'bcrypt';
 
 export class UserAuthService {
@@ -14,8 +14,8 @@ export class UserAuthService {
           return { message: 'Falha ao efetuar login, verifique as informações!', code: 400 }
         } else {
           const token = generateAccessToken(userProfile);
-          const refreshtoken = generateRefreshToken(userProfile);
-          return { token, refreshtoken, code: 200 };
+          // const refreshtoken = generateRefreshToken(userProfile);
+          return { token, code: 200 };
         }
       }
     } catch (error) {
