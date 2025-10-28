@@ -14,7 +14,7 @@ export class NoteDataResource {
     }
   }
 
-  static async uploadPdf(req: Request & { file?: Express.Multer.File }, res: Response) {
+  static async uploadPdf(req: Request & { file?: Express.Multer.File }, res: Response): Promise<any> {
     try {
       if (!req.file) {
         return res.status(400).json({ message: 'Nenhum arquivo enviado', code: 400 });
