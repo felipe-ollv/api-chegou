@@ -1,8 +1,6 @@
 import { Router } from "express";
-import express from 'express';
 import { UserProfileResource } from "./user.profile.resource";
-import { upload } from "../../config/multer-file-storage";
-import path from "path";
+import { upload } from "../../config/multer-image-storage";
 
 const router = Router();
 

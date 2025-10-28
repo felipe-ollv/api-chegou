@@ -31,6 +31,7 @@ export class PushNotificationService {
       body: safeMessage,
       data: { origin: "push-service", date: new Date().toISOString() },
       channelId: "default",
+      priority: "high",
     };
 
     logger.info("Enviando push notification: ------", message);

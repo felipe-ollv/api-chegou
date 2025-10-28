@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { NotificationResource } from "./notification.resource";
+import { uploadPdf } from "@/app/config/multer-pdf-storage";
 
 const router = Router();
 
