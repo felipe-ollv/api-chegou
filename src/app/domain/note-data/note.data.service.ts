@@ -26,8 +26,6 @@ export class NoteDataService {
 
       if (resModel.length > 0) {
         const users = await UserProfileService.findUsersByCondominium(dataPersist.uuidCondominiumFk);
-        logger.info('tokens users', JSON.stringify(users));
-
         PushNotificationService.sendPushNotificationsBatch(users, 'Aviso do síndico(a)');
         return resModel;
       }

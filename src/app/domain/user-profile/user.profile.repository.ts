@@ -1,3 +1,4 @@
+import logger from "../../utils/logger";
 import db from "../../database";
 
 export class UserProfileRepository {
@@ -195,7 +196,7 @@ export class UserProfileRepository {
           "user_profile.uuid_user_profile as uuidUserProfile"
         )
 
-      console.log('users repo', usersCondominium)
+      logger.info('Users condominium -> ', JSON.stringify(usersCondominium))
 
       return usersCondominium;
     } catch (error) {
