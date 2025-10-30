@@ -2,7 +2,7 @@ import { generateUUID } from "../../utils/uuid.generator";
 import { NoteDataRepository } from "./note.data.repository";
 import { UserProfileService } from "../user-profile/user.profile.service";
 import { PushNotificationService } from "../../service/push-notification.service";
-import logger from "@/app/utils/logger";
+import logger from "../../utils/logger";
 
 export class NoteDataService {
   static async findNoteDataService(data: any): Promise<any> {
