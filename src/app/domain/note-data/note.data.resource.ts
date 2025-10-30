@@ -25,7 +25,7 @@ export class NoteDataResource {
 
       const resp = await NoteDataService.saveNoteDocument(data, filePath);
 
-      if (resp.lenght > 0) {
+      if (resp.length > 0) {
         return res.json({ message: 'Enviado com sucesso!', code: 200, value: filePath });
       }
 

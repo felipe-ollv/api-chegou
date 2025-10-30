@@ -191,7 +191,7 @@ export class UserProfileRepository {
       const usersCondominium = await db(this.tableName)
         .where("uuid_condominium_fk", data)
         .select(
-          "user_profile.noficifation_token as token",
+          "user_profile.notification_token as token",
           "user_profile.uuid_user_profile as uuidUserProfile"
         )
 
