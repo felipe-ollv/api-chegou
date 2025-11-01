@@ -2,7 +2,7 @@ import { generateUUID } from "../../utils/uuid.generator";
 import { NoteDataRepository } from "./note.data.repository";
 import { UserProfileService } from "../user-profile/user.profile.service";
 import { PushNotificationService } from "../../service/push-notification.service";
-import logger from "../../utils/logger";
+import path from "path";
 
 export class NoteDataService {
   static async findNoteDataService(data: any): Promise<any> {
@@ -34,5 +34,18 @@ export class NoteDataService {
     } catch (error) {
       return error;
     }
+  }
+
+  static async fetchNotePdfService(fileName: string): Promise<string> {
+    let baseDir: string;
+
+    if (process.env.DIR_UPLOADS) {
+      baseDir = process.env.DIR_UPLOADS;
+    } else {
+      baseDir = path.join(path.resolve(), "pdfs");
+    }
+
+    const filePath = path.join(baseDir, fileName);
+    return filePath;
   }
 }

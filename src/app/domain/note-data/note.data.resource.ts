@@ -9,7 +9,6 @@ export class NoteDataResource {
       const resp = await NoteDataService.findNoteDataService(value);
       return res.status(200).json(resp);
     } catch (error) {
-      console.log("ERROR", error);
       return res.status(400).json({ message: 'Erro ao listar dados' });
     }
   }
@@ -30,8 +29,19 @@ export class NoteDataResource {
       }
 
     } catch (error) {
-      console.error(error);
       return res.status(500).json({ message: 'Erro interno ao enviar', code: 500 });
+    }
+  }
+
+  static async fetchNotePdf(req: Request, res: Response): Promise<any> {
+    try {
+      const fileName = req.params.fileName;
+      const filePath = await NoteDataService.fetchNotePdfService(fileName);
+
+      res.setHeader('Content-Type', 'application/pdf');
+      return res.sendFile(filePath);
+    } catch (error) {
+      return res.status(500).json({ message: 'Erro interno!' });
     }
   }
 }

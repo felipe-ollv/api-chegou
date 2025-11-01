@@ -10,5 +10,6 @@ router.post(
   uploadPdf.single('file'),
   NoteDataResource.uploadPdf
 );
+router.get('/pdf/:fileName', NoteDataResource.fetchNotePdf);
 
 export default router;

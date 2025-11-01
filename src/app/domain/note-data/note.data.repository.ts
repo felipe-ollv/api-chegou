@@ -7,7 +7,7 @@ export class NoteDataRepository {
   static async findbyUUid(data: string): Promise<any> {
     try {
       const noteData = await db(this.tableName)
-        .where('uuid_note_data', data)
+        .where('uuid_condominium_fk', data)
         .andWhere('deleted', 0)
         .select();
 
