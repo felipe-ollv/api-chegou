@@ -42,8 +42,8 @@ export class NoteDataService {
   static async fetchNotePdfService(fileName: string): Promise<string> {
     let baseDir: string;
 
-    if (process.env.DIR_PFDS) {
-      baseDir = process.env.DIR_PFDS;
+    if (process.env.DIR_PDFS) {
+      baseDir = process.env.DIR_PDFS;
     } else {
       baseDir = path.join(path.resolve(), "pdfs");
     }
