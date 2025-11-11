@@ -11,6 +11,6 @@ const publicRoutes = Router();
 
 publicRoutes.use('/login', authUserRoutes);
 publicRoutes.use('/user/register-user', userRoute.use(UserResource.registerUser));
-publicRoutes.use('/condominium/:value', condominiumRoute.use(CondominiumResource.findCondominium));
+publicRoutes.use('/condominium/find-condominium/:value', condominiumRoute.use(CondominiumResource.findCondominium));
 
 export default publicRoutes;

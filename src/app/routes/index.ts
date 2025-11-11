@@ -7,8 +7,6 @@ import userAccessRoutes from '../domain/user-access/user.access.route';
 import notificationRoutes from '../domain/notification/notification.route';
 import noteDataRoutes from '../domain/note-data/note.data.route';
 import receivedPackageRoutes from '../domain/received-package/received.package.route';
-
-// Rotas de serviços
 import pushNotificationRoutes from '../service/push-notification.route';
 
 const router = Router();
@@ -21,7 +19,7 @@ router.use('/notification', notificationRoutes);
 router.use('/note-data', noteDataRoutes);
 router.use('/received-package', receivedPackageRoutes);
 
-//Rotas de serviços
+// Rotas dos serviços
 router.use('/push-notification', pushNotificationRoutes)
 
 export default router;

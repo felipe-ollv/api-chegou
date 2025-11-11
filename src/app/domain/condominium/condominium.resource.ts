@@ -8,7 +8,12 @@ export class CondominiumResource {
     try {
       const value = req.params.value;
       const resp = await CondominiumService.findCondominiumService(value);
-      return res.status(200).json(resp);
+      if (resp.data) {
+        return res.json(resp.data);
+      } else {
+        return res.json({ message: '', code: 204 })
+      }
+
     } catch (error) {
       return res.status(400).json({ message: 'Erro ao listar condominio' });
     }
