@@ -41,10 +41,13 @@ export class ReceivedPackageRepository {
         })
         .andWhere('deleted', 0);
 
+      const total = Number(count);
+
       return {
         data: resPackage,
-        total: Number(count),
-        page
+        total,
+        page,
+        hasMore: offset + resPackage.length < total,
       };
     } catch (error) {
       return error;

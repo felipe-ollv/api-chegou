@@ -11,8 +11,15 @@ export class ReceivedPackageService {
   static async findReceivedPackageService(uuidUserProfile: string, page = 1, limit = 20): Promise<any> {
     try {
       const resModel = await ReceivedPackageRepository.findbyUUid(uuidUserProfile, page, limit);
-      const list = await ReceivedPackageChain.receiveHandler(resModel, uuidUserProfile);
-      return list;
+      const list = await ReceivedPackageChain.receiveHandler(resModel.data, uuidUserProfile);
+      return {
+        ...list,
+        pagination: {
+          total: resModel.total,
+          page: resModel.page,
+          hasMore: resModel.hasMore,
+        }
+      };
     } catch (error) {
       return error;
     }
