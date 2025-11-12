@@ -1,4 +1,3 @@
-import { generateUUID } from "../../utils/uuid.generator";
 import db from "../../database";
 
 export class NoteDataRepository {
@@ -9,6 +8,7 @@ export class NoteDataRepository {
       const noteData = await db(this.tableName)
         .where('uuid_condominium_fk', data)
         .andWhere('deleted', 0)
+        .orderBy('created_at', 'desc')
         .select();
 
       return noteData;
