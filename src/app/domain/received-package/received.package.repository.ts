@@ -3,8 +3,11 @@ import db from "../../database";
 export class ReceivedPackageRepository {
   private static tableName = "received_package";
 
-  static async findbyUUid(data: string): Promise<any> {
+  static async findbyUUid(data: string, page = 1, limit = 20): Promise<any> {
     try {
+
+      const offset = (page - 1) * limit;
+
       const resPackage = await db(this.tableName)
         .select(
           'owner_profile.apartment_block as blockOwner',
@@ -27,8 +30,22 @@ export class ReceivedPackageRepository {
         .andWhere('received_package.deleted', 0)
         .andWhere('condominium.deleted', 0)
         .orderBy('received_package.created_at', 'desc')
+        .limit(limit)
+        .offset(offset);
 
-      return resPackage;
+      const [{ count }] = await db(this.tableName)
+        .count('* as count')
+        .where(function () {
+          this.where('uuid_user_profile_receiver', data)
+            .orWhere('uuid_user_profile_owner', data);
+        })
+        .andWhere('deleted', 0);
+
+      return {
+        data: resPackage,
+        total: Number(count),
+        page
+      };
     } catch (error) {
       return error;
     }

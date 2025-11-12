@@ -1,13 +1,15 @@
 import { Request, Response } from "express";
 import { ReceivedPackageService } from "./received.package.service";
-import { receivedPackageSchema } from "./received.package.schema";
 
 export class ReceivedPackageResource {
 
   static async findReceivedPackage(req: Request, res: Response): Promise<any> {
     try {
       const value = req.params.value;
-      const resp = await ReceivedPackageService.findReceivedPackageService(value);
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 20;
+
+      const resp = await ReceivedPackageService.findReceivedPackageService(value, page, limit);
       return res.status(200).json(resp);
     } catch (error) {
       return res.status(400).json({ message: 'Erro ao listar dados' });

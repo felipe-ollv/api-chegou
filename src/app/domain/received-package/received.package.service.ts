@@ -8,9 +8,9 @@ import { ReceivedPackageChain } from './received.package.chain';
 import { PushNotificationService } from '../../service/push-notification.service';
 
 export class ReceivedPackageService {
-  static async findReceivedPackageService(uuidUserProfile: string): Promise<any> {
+  static async findReceivedPackageService(uuidUserProfile: string, page = 1, limit = 20): Promise<any> {
     try {
-      const resModel = await ReceivedPackageRepository.findbyUUid(uuidUserProfile);
+      const resModel = await ReceivedPackageRepository.findbyUUid(uuidUserProfile, page, limit);
       const list = await ReceivedPackageChain.receiveHandler(resModel, uuidUserProfile);
       return list;
     } catch (error) {
