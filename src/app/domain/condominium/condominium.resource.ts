@@ -6,10 +6,10 @@ export class CondominiumResource {
 
   static async findCondominium(req: Request, res: Response): Promise<any> {
     try {
-      const value = req.params.value;
-      const resp = await CondominiumService.findCondominiumService(value);
-      if (resp.data) {
-        return res.json(resp.data);
+      const condominiumId = req.query.uuid;
+      const resp = await CondominiumService.findCondominiumService(condominiumId);
+      if (resp) {
+        return res.json(resp);
       } else {
         return res.json({ message: '', code: 204 })
       }

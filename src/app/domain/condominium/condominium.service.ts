@@ -8,8 +8,9 @@ export class CondominiumService {
       const resModel = await CondominiumRepository.findbyUUid(data);
       if (resModel.length === 0) {
         return { message: '', code: 204 }
+      } else {
+        return resModel[0];
       }
-      return resModel;
     } catch (error) {
       return error;
     }
