@@ -29,7 +29,7 @@ export class NoteDataService {
 
       if (resModel.length > 0) {
         const users = await UserProfileService.findUsersByCondominium(dataPersist.uuidCondominiumFk);
-        PushNotificationService.sendPushNotificationsBatch(users, 'Aviso do síndico(a)');
+        PushNotificationService.sendPushNotificationsBatch(users, 'Abra para ver ... ');
         return resModel;
       }
 
