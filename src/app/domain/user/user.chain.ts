@@ -40,7 +40,8 @@ export class UserChain {
       "apartment_block": data.apartment_block,
       "apartment": parseInt(data.apartment),
       "phone_number": data.phone_number,
-      "type_profile": UserChain.handleProfileType(data.type_profile)
+      "type_profile": UserChain.handleProfileType(data.type_profile),
+      "profile_image": 'uploads/profile-1763222561033.jpg'
     }
 
     const user_access: UserAccess = {

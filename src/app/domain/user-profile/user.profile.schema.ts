@@ -9,6 +9,7 @@ export const userProfileSchema = z.object({
   apartment: z.number().nonnegative(),
   phone_number: z.string().nonempty(),
   type_profile: z.string().nonempty(),
+  profile_image: z.string().nonempty(),
   created_at: z.date().optional(),
   updated_at: z.date().optional(),
   deleted: z.number().optional()
