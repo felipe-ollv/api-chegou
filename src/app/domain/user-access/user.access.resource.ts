@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { userAccessSchema } from "./user.access.schema";
 import { UserAccessService } from "./user.access.service";
+import { UserAuthService } from "../../auth/user.auth.service";
 
 export class UserAccessResource {
 
@@ -34,6 +35,18 @@ export class UserAccessResource {
       return res.status(resp.code).json(resp.message);
     } catch (error) {
       return res.status(500).json({ message: 'Erro ao atualizar senha' });
+    }
+  }
+
+  static async validateWebUser(req: Request, res: Response): Promise<any> {
+    try {
+      const value = req.body;
+      const resp = await UserAuthService.authWebService(value);
+      if (resp.code === 200) {
+        return res.json(resp);
+      }
+    } catch (error) {
+      return res.status(500).json({ message: 'Erro interno' });
     }
   }
 }

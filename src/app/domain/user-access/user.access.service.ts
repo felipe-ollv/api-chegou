@@ -1,7 +1,7 @@
 import { UserAccess } from "./user.access.schema";
 import { UserAccessRepository } from "./user.access.repository";
 import { createHash } from "../../middleware/hash-password";
-
+import { MockFile } from "./mock"
 export class UserAccessService {
 
   static async findUserAccessService(data: any): Promise<any> {
@@ -47,6 +47,26 @@ export class UserAccessService {
       }
     } catch (error) {
 
+    }
+  }
+
+  static async validateKeyAccessService(data: any): Promise<any> {
+    try {
+      const uuidV4Regex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+      const uuidSet = new Set(MockFile.keyValidate);
+
+      if (!uuidV4Regex.test(data)) {
+        return { message: '', code: 500 }
+      }
+
+      const resModel = uuidSet.has(data);
+
+      if (resModel) {
+        return { message: '', code: 200, valid: true }
+      }
+
+    } catch (error) {
+      return { message: 'Erro interno!', code: 500 }
     }
   }
 }
