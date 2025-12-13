@@ -140,4 +140,13 @@ export class UserProfileService {
       return { message: 'Erro interno', code: 500 }
     }
   }
+
+  static async webTokenUserProfileService(data: any) {
+    try {
+      const userProfileToken = UserProfileRepository.webTokenUserProfile(data);
+      return userProfileToken;
+    } catch (error) {
+      return { message: 'Erro interno', code: 500 }
+    }
+  }
 }

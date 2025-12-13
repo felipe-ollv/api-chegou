@@ -29,15 +29,16 @@ export class UserAuthService {
 
     if (resValidateKey.valid) {
       const userProfile = await UserProfileService.findUserProfileByPhoneService(value.phone_number);
-      const refreshtoken = generateRefreshToken(userProfile);
+      const refreshToken = generateRefreshToken(userProfile);
 
-      console.log('REFRESH', refreshtoken);
+      const userDataToWeb = {
+        uuid: userProfile.uuid,
+        webToken: refreshToken
+      }
 
-      // salvar no banco o refresh token
-
+      UserProfileService.webTokenUserProfileService(userDataToWeb);
       return { message: 'Acesso web válido por 30 minutos', code: 200 }
     }
-
   }
 }
 

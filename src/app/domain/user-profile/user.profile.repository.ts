@@ -203,4 +203,19 @@ export class UserProfileRepository {
       return error
     }
   }
+
+  static async webTokenUserProfile(data: any): Promise<any> {
+    try {
+      const updated = await db(this.tableName)
+        .where('uuid_user_profile', data.uuid)
+        .update({
+          web_token: data.webToken,
+          updated_at: new Date()
+        });
+
+      return updated;
+    } catch (error) {
+      return error;
+    }
+  }
 }
