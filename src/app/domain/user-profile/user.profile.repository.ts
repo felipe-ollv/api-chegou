@@ -226,8 +226,10 @@ export class UserProfileRepository {
           "user_profile.apartment_block",
           "user_profile.apartment",
           "users.name",
+          "condominium.blocks"
         )
         .leftJoin("users", "user_profile.uuid_user_fk", "users.uuid_user")
+        .leftJoin("condominium", "user_profile.uuid_condominium_fk", "condominium.uuid_condominium")
         .where("user_profile.uuid_condominium_fk", data)
 
       console.log('REPOSITORY', residents)

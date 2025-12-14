@@ -153,6 +153,14 @@ export class UserProfileService {
   static async fetchResidentsCondominiumService(data: string): Promise<any> {
     try {
       const residents = await UserProfileRepository.fetchResidentsCondominium(data);
+
+      residents.map((row) => ({
+        ...row,
+        blocks: Array.isArray(row.blocks)
+          ? row.blocks
+          : JSON.parse(row.blocks),
+      }));
+
       return residents;
     } catch (error) {
       return { message: 'Erro interno', code: 500 }
