@@ -14,5 +14,6 @@ router.post(
 );
 router.get('/uploads/:value', UserProfileResource.fetchImageUserProfile);
 router.post('/exclude-account', UserProfileResource.excludeUserProfile);
+router.get('/find-residents/:value', UserProfileResource.fetchResidentsCondominium);
 
 export default router;

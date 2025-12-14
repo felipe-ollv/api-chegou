@@ -141,10 +141,19 @@ export class UserProfileService {
     }
   }
 
-  static async webTokenUserProfileService(data: any) {
+  static async webTokenUserProfileService(data: any): Promise<any> {
     try {
-      const userProfileToken = UserProfileRepository.webTokenUserProfile(data);
+      const userProfileToken = await UserProfileRepository.webTokenUserProfile(data);
       return userProfileToken;
+    } catch (error) {
+      return { message: 'Erro interno', code: 500 }
+    }
+  }
+
+  static async fetchResidentsCondominiumService(data: string): Promise<any> {
+    try {
+      const residents = await UserProfileRepository.fetchResidentsCondominium(data);
+      return residents;
     } catch (error) {
       return { message: 'Erro interno', code: 500 }
     }

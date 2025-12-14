@@ -218,4 +218,23 @@ export class UserProfileRepository {
       return error;
     }
   }
+
+  static async fetchResidentsCondominium(data: string): Promise<any> {
+    try {
+      const residents = await db(this.tableName)
+        .select(
+          "user_profile.apartment_block",
+          "user_profile.apartment",
+          "users.name",
+        )
+        .leftJoin("users", "user_profile.uuid_user_fk", "users.uuid_user")
+        .where("user_profile.uuid_condominium_fk", data)
+
+      console.log('REPOSITORY', residents)
+
+      return residents;
+    } catch (error) {
+      return error;
+    }
+  }
 }

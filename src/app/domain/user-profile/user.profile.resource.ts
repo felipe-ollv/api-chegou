@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { userProfileSchema } from "./user.profile.schema";
 import { UserProfileService } from "./user.profile.service";
+import { UserProfileRepository } from "./user.profile.repository";
 
 export class UserProfileResource {
 
@@ -75,6 +76,17 @@ export class UserProfileResource {
       return res.json(resp);
     } catch (error) {
       return res.status(400).json({ message: 'Erro ao excluir perfil do usuário' });
+    }
+  }
+
+  static async fetchResidentsCondominium(req: Request, res: Response): Promise<any> {
+    try {
+      const uuidCondominium = req.params.value;
+      const residentsData = await UserProfileService.fetchResidentsCondominiumService(uuidCondominium);
+
+      return res.json(residentsData);
+    } catch (error) {
+      return res.status(400).json({ message: '' });
     }
   }
 }
