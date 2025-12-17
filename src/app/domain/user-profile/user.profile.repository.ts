@@ -232,8 +232,6 @@ export class UserProfileRepository {
         .leftJoin("condominium", "user_profile.uuid_condominium_fk", "condominium.uuid_condominium")
         .where("user_profile.uuid_condominium_fk", data)
 
-      console.log('REPOSITORY', residents)
-
       return residents;
     } catch (error) {
       return error;

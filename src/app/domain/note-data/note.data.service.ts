@@ -8,8 +8,11 @@ export class NoteDataService {
   static async findNoteDataService(data: any): Promise<any> {
     try {
       const resModel = await NoteDataRepository.findbyUUid(data);
-      if (resModel[0].content !== null) {
-        resModel[0].content = `${process.env.BASE_URL_ENVIRONMENT}/note-data/${resModel[0].content}`
+      if (resModel.length > 0) {
+        resModel.forEach((element) => {
+          element.content = `${process.env.BASE_URL_ENVIRONMENT}/note-data/${element.content}`
+        });
+
       }
       return resModel;
     } catch (error) {
