@@ -6,6 +6,7 @@ export class CondominiumResource {
 
   static async findCondominium(req: Request, res: Response): Promise<any> {
     try {
+      console.log('REQ', req.query.condominiumId)
       const condominiumId = req.query.condominiumId;
       const resp = await CondominiumService.findCondominiumService(condominiumId);
       if (resp) {

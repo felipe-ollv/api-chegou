@@ -5,11 +5,12 @@ export class CondominiumRepository {
 
   static async findbyUUid(data: string): Promise<any> {
     try {
+      console.log('REPO', data);
       const condominium = await db(this.tableName)
         .where('condo_code', data)
         .andWhere('deleted', 0)
         .select();
-
+      console.log('RETORNO DB', condominium)
       return condominium;
     } catch (error) {
       return error;

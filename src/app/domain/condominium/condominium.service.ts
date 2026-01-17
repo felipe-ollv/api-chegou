@@ -5,6 +5,7 @@ export class CondominiumService {
 
   static async findCondominiumService(data: any): Promise<any> {
     try {
+      console.log('SERVICE', data)
       const resModel = await CondominiumRepository.findbyUUid(data);
       if (resModel.length === 0) {
         return { message: '', code: 204 }
