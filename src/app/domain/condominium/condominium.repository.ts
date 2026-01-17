@@ -9,7 +9,7 @@ export class CondominiumRepository {
       const condominium = await db(this.tableName)
         .where('condo_code', data)
         .andWhere('deleted', 0)
-        .first();
+        .select();
       console.log('RETORNO DB', condominium)
       return condominium;
     } catch (error) {
