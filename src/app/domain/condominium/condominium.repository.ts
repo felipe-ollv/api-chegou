@@ -6,7 +6,7 @@ export class CondominiumRepository {
   static async findbyUUid(data: string): Promise<any> {
     try {
       const condominium = await db(this.tableName)
-        .where('uuid_condominium', data)
+        .where('condo_code', data)
         .andWhere('deleted', 0)
         .select();
 
