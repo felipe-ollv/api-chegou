@@ -58,7 +58,7 @@ export class ReceivedPackageService {
 
         if (resNotification.length > 0) {
           console.log('expo token', userData.notification_token)
-          PushNotificationService.sendPushNotification(userData.notification_token, userData.uuid_user_profile, 'Chegou algo para você!')
+          PushNotificationService.sendPushNotification(userData.notification_token, userData.uuid_user_profile, 'Tem recebido, corre pra ver!')
           return { message: 'Recebimento registrado', code: 200 }
         }
 
@@ -71,10 +71,12 @@ export class ReceivedPackageService {
     }
   }
 
-  static async updateReceivedPackageService(data: Partial<ReceivedPackage>): Promise<any> {
+  static async updateReceivedPackageService(data: any): Promise<any> {
     try {
       const resModel = await ReceivedPackageRepository.updatePackage(data);
       if (resModel === 1) {
+        const pushServiceToken = await UserProfileService.findUserProfilePushToken(data.uuid_user_profile_owner);
+        PushNotificationService.sendPushNotification(pushServiceToken, data.uuid_user_profile_owner, 'Recebimento confirmado!')
         return { message: 'Recebimento confirmado', code: 200 }
       } else {
         return { message: 'Verifique o código', code: 400 }

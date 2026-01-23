@@ -7,6 +7,16 @@ import path from "path";
 
 export class UserProfileService {
 
+  static async findUserProfilePushToken(data: any): Promise<any> {
+    try {
+      const resModel = await UserProfileRepository.findUserProfilePushToken(data);
+
+      return resModel;
+    } catch (error) {
+      return { message: 'Erro interno', code: 500 }
+    }
+  }
+
   static async findUserProfileService(data: any): Promise<any> {
     try {
       const resModel = await UserProfileRepository.findUserProfileByUuid(data);

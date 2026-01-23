@@ -16,7 +16,7 @@ export class PushNotificationService {
     }
   }
 
-  static async sendPushNotification(token: string, uuidUserProfile: string, text: string) {
+  static async sendPushNotification(token: string, uuidUserProfile: string, text: any, title?: any) {
     if (!token || !Expo.isExpoPushToken(token)) {
       logger.error(`Token inválido para o usuário: ${uuidUserProfile} (${token})`);
       return;
@@ -27,7 +27,7 @@ export class PushNotificationService {
     const message = {
       to: token,
       sound: "default",
-      title: "ChegouApp!",
+      title: `${title ? title : "📦 👀"}`,
       body: safeMessage,
       data: { origin: "push-service", date: new Date().toISOString() },
       channelId: "default",
@@ -77,7 +77,7 @@ export class PushNotificationService {
       .map(({ token }) => ({
         to: token,
         sound: "default",
-        title: "ChegouApp!",
+        title: "⚠️ Aviso!",
         body: safeMessage,
         data: { origin: "push-service", date: new Date().toISOString() },
         channelId: "default",

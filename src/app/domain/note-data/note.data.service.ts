@@ -32,7 +32,7 @@ export class NoteDataService {
 
       if (resModel.length > 0) {
         const users = await UserProfileService.findUsersByCondominium(dataPersist.uuidCondominiumFk);
-        PushNotificationService.sendPushNotificationsBatch(users, 'Abra para ver ... ');
+        PushNotificationService.sendPushNotificationsBatch(users, 'Comunicado do condomínio!');
         return resModel;
       }
 
