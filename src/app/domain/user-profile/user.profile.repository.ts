@@ -6,14 +6,15 @@ export class UserProfileRepository {
 
   static async findUserProfilePushToken(uuid: string): Promise<any> {
     try {
-      const userProfilePushToken = await db(this.tableName)
-        .select('user_profile.notification_token')
-        .where('user_profile.uuid_user_profile', uuid)
-        .first()
+      const result = await db(this.tableName)
+        .select('notification_token')
+        .where('uuid_user_profile', uuid)
+        .first();
 
-      return userProfilePushToken;
+      return result;
     } catch (error) {
-
+      console.error('Erro ao buscar token push:', error);
+      throw error;
     }
   }
 
