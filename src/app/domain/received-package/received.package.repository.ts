@@ -81,7 +81,7 @@ export class ReceivedPackageRepository {
             'updated_at': new Date()
           })
 
-        return updatedPackageData;
+        return { updatedPackageData, uuidUserProfile: resModel[0].uuid_user_profile_owner };
       } else {
         return 0;
       }
