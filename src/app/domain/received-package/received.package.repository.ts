@@ -71,7 +71,10 @@ export class ReceivedPackageRepository {
     try {
       const resModel = await db(this.tableName)
         .where('uuid_package', packageData.uuid_package)
-        .select('received_package.confirmation_code');
+        .select(
+          'received_package.confirmation_code',
+          'received_package.uuid_user_profile_owner'
+        );
 
       console.log('repository', resModel)
 
