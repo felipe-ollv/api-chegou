@@ -76,8 +76,6 @@ export class ReceivedPackageRepository {
           'received_package.uuid_user_profile_owner'
         );
 
-      console.log('repository', resModel)
-
       if (resModel[0].confirmation_code === packageData.confirmation_code) {
         const updatedPackageData = await db(this.tableName)
           .where('uuid_package', packageData.uuid_package)
