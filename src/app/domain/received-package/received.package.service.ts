@@ -73,14 +73,10 @@ export class ReceivedPackageService {
 
   static async updateReceivedPackageService(data: any): Promise<any> {
     try {
-      console.log('DATA', data)
       const { updatedPackageData, uuidUserProfile } = await ReceivedPackageRepository.updatePackage(data);
-      console.log('updatedPackageData', updatedPackageData)
-      console.log('uuidUserProfile', uuidUserProfile)
       if (updatedPackageData === 1) {
-        const { notification_token } = await UserProfileService.findUserProfilePushToken(uuidUserProfile);
-        console.log('PUSH TOKEN', notification_token)
-        PushNotificationService.sendPushNotification(notification_token, data.uuid_user_profile_owner, 'Recebimento confirmado!')
+        const pushServiceToken = await UserProfileService.findUserProfilePushToken(uuidUserProfile);
+        PushNotificationService.sendPushNotification(pushServiceToken[0].notification_token, data.uuid_user_profile_owner, 'Recebimento confirmado!')
         return { message: 'Recebimento confirmado', code: 200 }
       } else {
         return { message: 'Verifique o código', code: 400 }

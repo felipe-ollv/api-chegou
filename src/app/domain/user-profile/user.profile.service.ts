@@ -10,7 +10,6 @@ export class UserProfileService {
   static async findUserProfilePushToken(data: any): Promise<any> {
     try {
       const resModel = await UserProfileRepository.findUserProfilePushToken(data);
-      console.log('RES MODEL', resModel)
       return resModel;
     } catch (error) {
       return { message: 'Erro interno', code: 500 }
