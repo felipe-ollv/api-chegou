@@ -73,6 +73,8 @@ export class ReceivedPackageRepository {
         .where('uuid_package', packageData.uuid_package)
         .select('received_package.confirmation_code');
 
+      console.log('repository', resModel)
+
       if (resModel[0].confirmation_code === packageData.confirmation_code) {
         const updatedPackageData = await db(this.tableName)
           .where('uuid_package', packageData.uuid_package)

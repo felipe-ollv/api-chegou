@@ -6,10 +6,10 @@ export class UserProfileRepository {
 
   static async findUserProfilePushToken(uuid: string): Promise<any> {
     try {
+      console.log('UUID', uuid)
       const result = await db(this.tableName)
-        .select('notification_token')
-        .where('uuid_user_profile', uuid)
-        .first();
+        .select('user_profile.notification_token')
+        .where('user_profile.uuid_user_profile', uuid)
 
       return result;
     } catch (error) {

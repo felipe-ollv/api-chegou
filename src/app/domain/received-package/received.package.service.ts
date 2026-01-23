@@ -75,6 +75,8 @@ export class ReceivedPackageService {
     try {
       console.log('DATA', data)
       const { updatedPackageData, uuidUserProfile } = await ReceivedPackageRepository.updatePackage(data);
+      console.log('updatedPackageData', updatedPackageData)
+      console.log('uuidUserProfile', uuidUserProfile)
       if (updatedPackageData === 1) {
         const pushServiceToken = await UserProfileService.findUserProfilePushToken(uuidUserProfile);
         console.log('PUSH TOKEN', pushServiceToken)
