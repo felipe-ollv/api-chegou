@@ -73,6 +73,7 @@ export class ReceivedPackageService {
 
   static async updateReceivedPackageService(data: any): Promise<any> {
     try {
+      console.log('DATA', data)
       const resModel = await ReceivedPackageRepository.updatePackage(data);
       if (resModel === 1) {
         const pushServiceToken = await UserProfileService.findUserProfilePushToken(data.uuid_user_profile_owner);
