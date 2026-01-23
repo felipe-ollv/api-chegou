@@ -76,7 +76,7 @@ export class ReceivedPackageService {
       const { updatedPackageData, uuidUserProfile } = await ReceivedPackageRepository.updatePackage(data);
       if (updatedPackageData === 1) {
         const pushServiceToken = await UserProfileService.findUserProfilePushToken(uuidUserProfile);
-        PushNotificationService.sendPushNotification(pushServiceToken[0].notification_token, data.uuid_user_profile_owner, 'Recebimento confirmado!', '✅')
+        PushNotificationService.sendPushNotification(pushServiceToken[0].notification_token, uuidUserProfile, 'Recebimento confirmado!', '✅')
         return { message: 'Recebimento confirmado', code: 200 }
       } else {
         return { message: 'Verifique o código', code: 400 }
