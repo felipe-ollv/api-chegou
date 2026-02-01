@@ -153,6 +153,9 @@ export class UserProfileRepository {
           updated_at: new Date()
         });
 
+
+      console.log('TESTE ISA')
+
       return userProfileImage;
     } catch (error) {
       return error;
