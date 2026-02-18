@@ -29,6 +29,7 @@ export class UserProfileRepository {
         u.name,
         u.uuid_user,
         c.condominium_name,
+        c.blocks,
         COUNT(rp.uuid_package) AS total_received,
         COALESCE(SUM(rp.status_package = 'RECEIVED'), 0) AS total_pending,
         COALESCE(SUM(rp.status_package = 'DELIVERED'), 0) AS total_delivered
