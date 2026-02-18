@@ -25,14 +25,16 @@ export class NoteDataService {
       const dataPersist = {
         uuidNoteData: generateUUID(),
         uuidCondominiumFk: data.uuidCondominium,
-        content: filePath
+        content: filePath,
+        category: data.category,
+        description: data.description
       }
       const resModel = await NoteDataRepository.saveNoteDocument(dataPersist);
 
 
       if (resModel.length > 0) {
         const users = await UserProfileService.findUsersByCondominium(dataPersist.uuidCondominiumFk);
-        PushNotificationService.sendPushNotificationsBatch(users, 'Comunicado do condomínio!');
+        PushNotificationService.sendPushNotificationsBatch(users, data.category, data.description);
         return resModel;
       }
 

@@ -57,7 +57,8 @@ export class PushNotificationService {
 
   static async sendPushNotificationsBatch(
     users: { token: string; uuidUserProfile: string }[],
-    text: string
+    title: string,
+    text?: string
   ) {
     if (!users?.length) {
       logger.warn("Nenhum usuário informado para envio de push.");
@@ -77,7 +78,7 @@ export class PushNotificationService {
       .map(({ token }) => ({
         to: token,
         sound: "default",
-        title: "⚠️ Aviso!",
+        title: title,
         body: safeMessage,
         data: { origin: "push-service", date: new Date().toISOString() },
         channelId: "default",

@@ -23,7 +23,9 @@ export class NoteDataRepository {
         .insert({
           uuid_note_data: data.uuidNoteData,
           uuid_condominium_fk: data.uuidCondominiumFk,
-          content: data.content
+          content: data.content,
+          category: data.category,
+          description: data.description
         })
 
       return noteData;
