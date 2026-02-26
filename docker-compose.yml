@@ -41,6 +41,30 @@ services:
           memory: 512M
         limits:
           memory: 4G
+  painel:
+    build:
+      context: ../api-web-chegou
+      dockerfile: Dockerfile.painel
+    container_name: painel-prod-chegou
+    restart: always
+    env_file:
+      - .env
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3010:3010"
+    depends_on:
+      - mysql
+    deploy:
+      resources:
+        reservations:
+          memory: 512M
+        limits:
+          memory: 4G
 
 volumes:
   mysql_data:
