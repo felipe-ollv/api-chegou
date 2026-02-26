@@ -13,7 +13,7 @@ services:
     ports:
       - "${DB_PORT}:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - /data/db_data:/var/lib/mysql
     deploy:
       resources:
         reservations:
@@ -33,6 +33,7 @@ services:
       - "3006:3006"
     volumes:
       - uploads_data:/usr/src/app/uploads
+      - pdfs_data:/usr/src/app/pdfs
     depends_on:
       - mysql
     deploy:
@@ -43,16 +44,15 @@ services:
           memory: 4G
 
 volumes:
-  mysql_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /data/mysql-data
-      o: bind
-
   uploads_data:
     driver: local
     driver_opts:
       type: none
       device: /data/uploads
+      o: bind
+  pdfs_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /data/pdfs
       o: bind
